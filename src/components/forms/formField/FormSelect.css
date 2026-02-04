@@ -1,0 +1,44 @@
+.custom-select {
+    min-height: 48px !important;
+}
+
+.custom-select .ant-select-selector {
+    border-radius: 1px !important;
+    border: 1px solid #98a4ae !important;
+    transition: all 0.3s ease !important;
+    background-color: #f1f5f9 !important;
+    min-height: 48px !important;
+    overflow: hidden !important;
+}
+
+.custom-select:not(.ant-select-disabled):hover .ant-select-selector {
+    border-color: #98a4ae !important;
+}
+
+.custom-select.ant-select-focused .ant-select-selector {
+    border-color: #98a4ae !important;
+}
+
+.ant-select-dropdown {
+    border-radius: 1px !important;
+    padding: 4px 0 !important;
+    z-index: 1050 !important;
+}
+
+.ant-select-item-option:hover {
+    background-color: #e5e5e5 !important;
+}
+
+.ant-select-item-option-selected {
+    background-color: #e5e5e5 !important;
+    font-weight: 600 !important;
+}
+.ant-select-item-option-active {
+    background-color: #e5e5e5 !important;
+}
+
+.custom-select .ant-select-indicator-icon {
+    color: #000000 !important;
+    width: 24px !important;
+    height: 24px !important;
+}

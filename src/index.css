@@ -1,0 +1,185 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+html,
+body,
+#root {
+    font-family: inherit;
+    font-weight: inherit;
+    font-style: inherit;
+}
+
+body {
+    background-color: #f1f5f9;
+}
+
+[class^='ant-'],
+[class*=' ant-'] {
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* Custom Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fadeIn {
+    animation: fadeIn 0.2s ease-out forwards;
+}
+
+/* Custom Scrollbar Styles */
+@layer utilities {
+    .scrollbar-thin::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+    }
+
+    .scrollbar-thin::-webkit-scrollbar-track {
+        background: #97a8c333;
+        border-radius: 3px;
+    }
+
+    .scrollbar-thin::-webkit-scrollbar-thumb {
+        background: #5a7297;
+        border-radius: 3px;
+    }
+
+    .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+        background: #5a7297;
+        opacity: 0.5;
+    }
+}
+
+.ant-alert-message {
+    font-weight: 600;
+    font-size: 16px;
+    color: #172b4d;
+}
+
+.ant-alert-description {
+    font-size: 14px;
+    color: #172b4d;
+}
+.ant-drawer-close {
+    display: none !important;
+}
+
+/* Sidebar Menu Styles */
+.sidebar-menu .ant-menu-item {
+    margin: 4px 8px !important;
+    border-radius: 8px !important;
+    color: #626f86 !important;
+}
+
+.sidebar-menu .ant-menu-item a {
+    color: #626f86 !important;
+}
+
+.sidebar-menu .ant-menu-item:hover {
+    background-color: #f4f5f7 !important;
+}
+
+.sidebar-menu .ant-menu-item-selected {
+    background-color: #e9f2ff !important;
+    border-right: 3px solid #0c66e4 !important;
+    border-radius: 8px 0 0 8px !important;
+    margin-right: 0 !important;
+}
+
+.sidebar-menu .ant-menu-item-selected a {
+    color: #0c66e4 !important;
+    font-weight: 500 !important;
+}
+
+.sidebar-menu .ant-menu-item-selected .anticon,
+.sidebar-menu .ant-menu-item-selected svg {
+    color: #0c66e4 !important;
+    stroke: #0c66e4 !important;
+}
+
+.sidebar-menu .ant-menu-item .anticon,
+.sidebar-menu .ant-menu-item svg {
+    color: #626f86 !important;
+    stroke: #626f86 !important;
+}
+
+/* HTML Table Styles for processHtmlImages content - only applies to HTML content areas */
+[class*='ql-editor'] table,
+[class*='prose'] table,
+div[dangerouslySetInnerHTML] table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    margin: 1rem 0 !important;
+    display: table !important;
+    border: 1px solid #ddd !important;
+}
+
+[class*='ql-editor'] table thead,
+[class*='prose'] table thead,
+div[dangerouslySetInnerHTML] table thead {
+    display: table-header-group !important;
+    background-color: #f5f5f5 !important;
+}
+
+[class*='ql-editor'] table tbody,
+[class*='prose'] table tbody,
+div[dangerouslySetInnerHTML] table tbody {
+    display: table-row-group !important;
+}
+
+[class*='ql-editor'] table tfoot,
+[class*='prose'] table tfoot,
+div[dangerouslySetInnerHTML] table tfoot {
+    display: table-footer-group !important;
+}
+
+[class*='ql-editor'] table tr,
+[class*='prose'] table tr,
+div[dangerouslySetInnerHTML] table tr {
+    display: table-row !important;
+}
+
+[class*='ql-editor'] table th,
+[class*='ql-editor'] table td,
+[class*='prose'] table th,
+[class*='prose'] table td,
+div[dangerouslySetInnerHTML] table th,
+div[dangerouslySetInnerHTML] table td {
+    border: 1px solid #ddd !important;
+    padding: 8px 12px !important;
+    text-align: left !important;
+    display: table-cell !important;
+}
+
+[class*='ql-editor'] table th,
+[class*='prose'] table th,
+div[dangerouslySetInnerHTML] table th {
+    font-weight: 600 !important;
+    background-color: #f5f5f5 !important;
+}
+
+[class*='ql-editor'] table tr:nth-child(even),
+[class*='prose'] table tr:nth-child(even),
+div[dangerouslySetInnerHTML] table tr:nth-child(even) {
+    background-color: #f9f9f9 !important;
+}
+
+[class*='ql-editor'] table tr:hover,
+[class*='prose'] table tr:hover,
+div[dangerouslySetInnerHTML] table tr:hover {
+    background-color: #f0f0f0 !important;
+}
