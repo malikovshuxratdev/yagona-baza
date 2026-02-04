@@ -32,3 +32,18 @@ export interface Region {
 export interface Name {
     uz: string;
 }
+
+
+export type ScienceIdUserRegisterStatisticsDailyByMonthResponse = ScienceIdUserRegisterStatisticsDailyByMonth[]
+
+export interface ScienceIdUserRegisterStatisticsDailyByMonth {
+    day: number
+    count: number
+}
+
+export type ScienceIdUserRegisterStatisticsDailyByYearResponse = ScienceIdUserRegisterStatisticsDailyByYear[]
+
+export interface ScienceIdUserRegisterStatisticsDailyByYear {
+    month: number
+    count: number
+}

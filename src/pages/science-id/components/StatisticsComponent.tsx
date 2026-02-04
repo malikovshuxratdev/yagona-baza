@@ -70,16 +70,11 @@ const StatisticsComponent: React.FC = () => {
     ];
 
     return (
-        <div className="mx-auto px-3 sm:px-4 lg:px-6">
-            <div className="text-center mb-6 sm:mb-10">
-                <h2 className="text-2xl sm:text-3xl md:text-4xl font-medium text-gray-900 mb-3 sm:mb-6">
-                    Science ID statistikasi
-                </h2>
-            </div>
+        <div>
             {isPending ? (
                 <PageLoading />
             ) : (
-                <div className="flex flex-col lg:flex-row gap-6">
+                <div className="flex flex-col lg:flex-row gap-6 mt-6">
                     <div className="w-full lg:w-1/2">
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-6">
                             {stats.map((stat, index) => (

@@ -8,3 +8,5 @@ export { default as ImageUpload } from './ImageUpload';
 export * from './ConfirmModal';
 export { default as MapContainer } from './MapContainer';
 export { default as RegionsGridComponent } from './RegionsGridComponent';
+export { default as RegisterChartByDate } from './RegisterChartByDate';
+export type { RegisterChartTabKey, RegisterChartByDateProps } from './RegisterChartByDate';

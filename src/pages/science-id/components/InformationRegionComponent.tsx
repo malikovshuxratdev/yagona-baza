@@ -68,9 +68,9 @@ const InformationRegionComponent: React.FC = () => {
     }, [selectedRegion, data]);
 
     return (
-        <div className="mx-auto px-3 sm:px-4 lg:px-6 mt-[20px]">
-            <div className="text-center mb-6 sm:mb-10">
-                <h2 className="text-2xl sm:text-3xl md:text-4xl font-medium text-gray-900 mb-3 sm:mb-6">
+        <div>
+            <div className="text-center mb-2">
+                <h2 className="text-lg sm:text-xl md:text-2xl font-medium text-gray-900 mt-6">
                     Hududlar bo'yicha
                 </h2>
             </div>

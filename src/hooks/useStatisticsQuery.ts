@@ -68,3 +68,25 @@ export const useScienceUserDetailQuery = (id: number) => {
 
     return query;
 }
+
+export const useScienceUserRegisterStatisticsDailyByMonthQuery = (year: number, month: number) => {
+    const query = useQuery({
+        queryKey: ['science-id-user-register-statistics-daily-by-month', year, month],
+        queryFn: () => scienceIdApi.getUserRegisterStatisticsDailyByMonth(year, month),
+        enabled: !!year && !!month,
+        refetchOnWindowFocus: true,
+        refetchOnReconnect: true,
+    });
+    return query;
+}
+
+export const useScienceUserRegisterStatisticsDailyByYearQuery = (year: number) => {
+    const query = useQuery({
+        queryKey: ['science-id-user-register-statistics-daily-by-year', year],
+        queryFn: () => scienceIdApi.getUserRegisterStatisticsDailyByYear(year),
+        enabled: !!year,
+        refetchOnWindowFocus: true,
+        refetchOnReconnect: true,
+    });
+    return query;
+}
