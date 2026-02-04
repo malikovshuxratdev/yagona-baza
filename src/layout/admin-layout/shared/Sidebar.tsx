@@ -1,8 +1,8 @@
 import { Layout, Menu } from 'antd';
 import {
     LogOut,
-    HomeIcon,
     Users,
+    BarChart,
 } from 'lucide-react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useState, useMemo, useCallback } from 'react';
@@ -40,13 +40,13 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
                     children: [
                         {
                             key: paths.DASHBOARD,
-                            icon: <HomeIcon size={16} />,
+                            icon: <BarChart size={16} />,
                             label: (
                                 <Link
                                     to={paths.DASHBOARD}
                                     className="text-gray-light-10"
                                 >
-                                    Bosh sahifa
+                                    Dashboard
                                 </Link>
                             ),
                         },
