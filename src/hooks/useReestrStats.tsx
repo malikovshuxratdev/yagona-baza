@@ -20,3 +20,12 @@ export const useReestrPassportTemplateStatisticsQuery = (org_class?: string | un
         refetchOnReconnect: true,
     });
 }
+
+export const useReestrRegionStatisticsQuery = (soato: number) => {
+    return useQuery({
+        queryKey: ['reestr-region-statistics', soato],
+        queryFn: () => reestrApi.getRegionStatistics({ soato }),
+        refetchOnWindowFocus: true,
+        refetchOnReconnect: true,
+    });
+}

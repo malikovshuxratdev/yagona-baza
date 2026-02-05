@@ -1,3 +1,5 @@
+import { NameType } from "@/types/reuseType"
+
 export type ReestrOrgClassStatisticsResponse = ReestrOrgClassStatisticsItem[]
 
 export interface ReestrOrgClassStatisticsItem {
@@ -13,4 +15,11 @@ export interface ReestrPassportTemplateStatisticsItem {
     label: string
     count: number
 }
+
+export interface ReestrRegionStatisticsResponse {
+    region_soato: string
+    region_name: NameType
+    items: ReestrOrgClassStatisticsItem[]
+}
+
 
