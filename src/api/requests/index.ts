@@ -1,2 +1,2 @@
-export * from './organizationApi';
 export * from './scienceIdApi';
+export * from './reestrApi';

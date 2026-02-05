@@ -1,5 +1,5 @@
 import { AxiosResponse } from "axios";
-import { baseApiClient } from "../baseClient";
+import { scienceIdApiClient } from "../baseClient";
 import {
     ScienceIdStatisticsResponse,
     ScienceIdUserListResponse,
@@ -17,7 +17,7 @@ const urls = {
 };
 
 export class ScienceIdApi {
-    constructor(private api = baseApiClient) { }
+    constructor(private api = scienceIdApiClient) { }
 
 
     getStatisticsData = async () => {

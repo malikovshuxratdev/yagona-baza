@@ -8,13 +8,17 @@ import Axios, {
 import { buildParams } from './helpers';
 import { TokenService } from '@/utils/storage';
 import paths from '@/routes/path';
-import { SCIENCEID_URL } from '@/constants';
+import { SCIENCEID_URL, REESTR_URL } from '@/constants';
 
-const API_URL = SCIENCEID_URL;
+export type ApiClientKey = 'scienceId' | 'reestr';
+
+const URL_MAP: Record<ApiClientKey, string> = {
+    scienceId: SCIENCEID_URL,
+    reestr: REESTR_URL,
+};
 
 declare module 'axios' {
     export interface AxiosRequestConfig {
-        _retry?: boolean;
         unhandled?: boolean;
     }
 }
@@ -24,33 +28,36 @@ export class HTTPError extends Error {
         super(cause);
     }
 }
-export class BaseClient {
-    private baseUrl = API_URL;
-    private axios: AxiosInstance;
-    private static instance: BaseClient | null = null;
 
-    private constructor() {
+export class BaseClient {
+    private baseUrl: string;
+    private axios: AxiosInstance;
+    private static instances: Partial<Record<ApiClientKey, BaseClient>> = {};
+
+    private constructor(baseUrl: string) {
+        this.baseUrl = baseUrl;
         this.axios = Axios.create({
             baseURL: this.baseUrl,
         });
 
-        // Request interceptor for attaching the token
         this.axios.interceptors.request.use(this.attachToken);
-        // Response interceptor for handling errors
         this.axios.interceptors.response.use(
             (response: AxiosResponse) => response,
             this.onApiError
         );
     }
 
-    public static getInstance(): BaseClient {
-        if (!BaseClient.instance) {
-            BaseClient.instance = new BaseClient();
+    public static getInstance(key: ApiClientKey): BaseClient {
+        if (!BaseClient.instances[key]) {
+            const baseUrl = URL_MAP[key];
+            if (!baseUrl) {
+                throw new Error(`Unknown API client key: ${key}`);
+            }
+            BaseClient.instances[key] = new BaseClient(baseUrl);
         }
-        return BaseClient.instance;
+        return BaseClient.instances[key];
     }
 
-    // Request interceptor for attaching token
     private attachToken = async (req: InternalAxiosRequestConfig) => {
         const token = TokenService.getToken();
 
@@ -62,81 +69,17 @@ export class BaseClient {
         return req;
     };
 
-    // API Error handler
     private onApiError = async (error: AxiosError) => {
-        const originalRequest = error.config;
-
-        // Agar refresh token so'rovi bo'lsa, uni interceptor orqali o'tkazmaslik kerak
-        if (originalRequest?.url?.includes('/auth/refresh-token')) {
-            return Promise.reject(error);
+        if (error.response?.status === 401) {
+            TokenService.clearTokens();
+            window.location.href = paths.HOME;
         }
-
-        if (originalRequest && !originalRequest._retry) {
-            originalRequest._retry = true;
-            if (error.response?.status === 401) {
-                // Refresh token orqali access tokenni yangilash
-                const refreshed = await this.refreshToken();
-                if (refreshed) {
-                    // Yangilangan access token bilan so‘rovni qayta yuborish
-                    return this.axios(originalRequest);
-                } else {
-                    // Refresh token ham ishlamasa, tokenlarni tozalab, login sahifasiga yo'naltirish
-                    TokenService.clearTokens();
-                    window.location.href = paths.HOME;
-                    return;
-                }
-            }
-            if (error.response?.status === 502) {
-                return Promise.reject(error);
-            }
-        }
-
         return Promise.reject(error);
-    };
-
-    // Refresh token method
-    private refreshToken = async (): Promise<boolean> => {
-        try {
-            const refreshToken = TokenService.getRefreshToken();
-            if (!refreshToken) {
-                return false;
-            }
-
-            // Refresh endpointga so‘rov yuboriladi
-            const response = await Axios.get(
-                `${this.baseUrl}/auth/refresh-token?refresh_token=${refreshToken}`,
-                {
-                    // Interceptor orqali o'tkazmaslik uchun
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                }
-            );
-
-            // Response strukturasi: { status: 200, data: { access_token, refresh_token } }
-            const { access_token } = response.data?.data || {};
-
-            if (access_token) {
-                TokenService.setToken(access_token, refreshToken);
-                this.setAccessToken(access_token);
-                return true;
-            } else {
-                return false;
-            }
-        } catch (error) {
-            // Agar refresh token ham 401 bersa, login sahifasiga yo'naltirish
-            if (error instanceof AxiosError && error.response?.status === 401) {
-                TokenService.clearTokens();
-                window.location.href = paths.HOME;
-            }
-            return false;
-        }
     };
 
     setAccessToken = (token: string) => {
         const newToken = `Bearer ${token}`;
         this.axios.defaults.headers.common.Authorization = newToken;
-
         return newToken;
     };
 
@@ -178,4 +121,5 @@ export class BaseClient {
     };
 }
 
-export const baseApiClient = BaseClient.getInstance();
+export const scienceIdApiClient = BaseClient.getInstance('scienceId');
+export const reestrApiClient = BaseClient.getInstance('reestr');

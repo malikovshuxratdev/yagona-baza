@@ -1,9 +1,10 @@
 import { Layout, Menu } from 'antd';
 import {
-    LogOut,
     Users,
     BarChart,
+    Building2,
 } from 'lucide-react';
+import { LogoutOutlined } from '@ant-design/icons';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useState, useMemo, useCallback } from 'react';
 import { paths } from '@/routes';
@@ -22,7 +23,7 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
     const location = useLocation();
     const navigate = useNavigate();
     const { logout } = useAuth();
-    const [openKeys, setOpenKeys] = useState<string[]>([paths.ADMIN]);
+    const [openKeys, setOpenKeys] = useState<string[]>([paths.ADMIN, paths.REESTR_ADMIN]);
 
 
 
@@ -59,6 +60,36 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
                                     className="text-gray-light-10"
                                 >
                                     Foydalanuvchilar
+                                </Link>
+                            ),
+                        },
+                    ],
+                },
+                {
+                    key: paths.REESTR_ADMIN,
+                    label: 'Reestr',
+                    children: [
+                        {
+                            key: paths.REESTR_DASHBOARD,
+                            icon: <BarChart size={16} />,
+                            label: (
+                                <Link
+                                    to={paths.REESTR_DASHBOARD}
+                                    className="text-gray-light-10"
+                                >
+                                    Dashboard
+                                </Link>
+                            ),
+                        },
+                        {
+                            key: paths.REESTR_ORGANIZATIONS,
+                            icon: <Building2 size={16} />,
+                            label: (
+                                <Link
+                                    to={paths.REESTR_ORGANIZATIONS}
+                                    className="text-gray-light-10"
+                                >
+                                    Tashkilotlar
                                 </Link>
                             ),
                         },
@@ -120,7 +151,7 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
                         aria-label="Chiqish"
                         onClick={handleLogout}
                     >
-                        <LogOut size={18} />
+                        <LogoutOutlined style={{ fontSize: '18px' }} />
                         {!collapsed && (
                             <span className="text-sm">
                                 Chiqish

@@ -26,7 +26,7 @@ const LoginForm: React.FC = () => {
     });
 
     const onSubmit = (values: LoginFormValues) => {
-        if (values.login === 'admin' && values.password === 'admin') {
+        if (values.login === 'admin' && values.password === 'admin123') {
             login();
             navigate(paths.DASHBOARD, { replace: true });
             toast.success("Tizimga muvaffaqiyatli kirdingiz");

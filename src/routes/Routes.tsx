@@ -13,10 +13,13 @@ const HomePage = lazy(() => import('@/pages/home/HomePage'));
 const DashboardPage = lazy(() => import('@/pages/science-id/DashboardPage'));
 const UsersPage = lazy(() => import('@/pages/science-id/UsersPage'));
 const UserDetailPage = lazy(() => import('@/pages/science-id/UserDetailPage'));
+
+// Reestr pages
+const ReestrDashboardPage = lazy(() => import('@/pages/reestr/DashboardPage'));
+const ReestrOrganizationsPage = lazy(() => import('@/pages/reestr/ReestrOrganizationsPage'));
+const ReestrOrganizationDetail = lazy(() => import('@/pages/reestr/ReestrOrganizationDetail'));
+
 const NotFoundPage = lazy(() => import('@/pages/not-found/NotFoundPage'));
-// const OrganizationsPage = lazy(() => import('@/pages/organizations/OrganizationsPage'));
-// const OrganizationDetail = lazy(() => import('@/pages/organizations/OrganizationDetail'));
-// const OrganizationCreate = lazy(() => import('@/pages/organizations/OrganizationCreate'));
 
 const Router: RouteObject[] = [
     {
@@ -69,6 +72,32 @@ const Router: RouteObject[] = [
             //     element: <OrganizationCreate />,
             //     errorElement: <RouterErrorBoundary />,
             // },
+        ],
+    },
+    {
+        path: paths.REESTR_ADMIN,
+        element: (
+            <Suspense fallback={<PageLoading />}>
+                <AdminLayout />
+            </Suspense>
+        ),
+        errorElement: <RouterErrorBoundary />,
+        children: [
+            {
+                path: paths.REESTR_DASHBOARD,
+                element: <ReestrDashboardPage />,
+                errorElement: <RouterErrorBoundary />,
+            },
+            {
+                path: paths.REESTR_ORGANIZATIONS,
+                element: <ReestrOrganizationsPage />,
+                errorElement: <RouterErrorBoundary />,
+            },
+            {
+                path: paths.REESTR_ORGANIZATION_VIEW,
+                element: <ReestrOrganizationDetail />,
+                errorElement: <RouterErrorBoundary />,
+            },
         ],
     },
     {

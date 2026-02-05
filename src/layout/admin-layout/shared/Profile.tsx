@@ -51,7 +51,7 @@ const ProfileDropdown: React.FC<ProfileDropdownProps> = ({ logOut }) => {
             icon: <LogoutOutlined style={{ fontSize: '18px' }} />,
             label: (
                 <span className="text-black text-sm font-normal my-1">
-                    Logout
+                    Chiqish
                 </span>
             ),
         },
