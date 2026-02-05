@@ -7,8 +7,8 @@ const RouterErrorBoundary = () => {
     const navigate = useNavigate();
 
     // Default error state
-    let errorTitle = "Kutilmagan xatolik";
-    let errorDescription = "Kechirasiz, tizimda kutilmagan xatolik yuz berdi. Iltimos, keyinroq qayta urinib ko'ring.";
+    let errorTitle = "Tizimda xatolik yuz berdi";
+    let errorDescription = "Tizimda xatolik yuz berdi. Iltimos, keyinroq qayta urinib ko'ring.";
     let status: number | undefined = undefined;
 
     // Check for specific router errors

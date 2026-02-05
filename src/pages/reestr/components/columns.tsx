@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 import type { ColumnsType } from 'antd/es/table';
 import { TableAction, TableHeaderText, TableText } from '@/components';
 import type { ReestrOrganizationListItem } from '@/types';
+import { fullDateFormat } from '@/helpers';
 
 interface UseReestrOrganizationColumnsProps {
     pagination: {
@@ -33,7 +34,7 @@ export const useReestrOrganizationColumns = ({
                 dataIndex: 'name',
                 key: 'name',
                 width: 320,
-                ellipsis: true,
+                onCell: () => ({ style: { whiteSpace: 'normal', wordBreak: 'break-word' } }),
                 render: (_: unknown, record: ReestrOrganizationListItem) => (
                     <TableText
                         text={record?.name ?? '-'}
@@ -48,16 +49,6 @@ export const useReestrOrganizationColumns = ({
                 width: 120,
                 render: (tin: string) => (
                     <TableText text={tin ?? '-'} disabled />
-                ),
-            },
-            {
-                title: <TableHeaderText text="Qisqa nomi" />,
-                dataIndex: 'short_name',
-                key: 'short_name',
-                width: 160,
-                ellipsis: true,
-                render: (short_name: string) => (
-                    <TableText text={short_name ?? '-'} disabled />
                 ),
             },
             {
@@ -76,7 +67,7 @@ export const useReestrOrganizationColumns = ({
                 width: 120,
                 render: (date: string) => (
                     <TableText
-                        text={date ? new Date(date).toLocaleDateString('uz-UZ') : '–'}
+                        text={date ? fullDateFormat(date) : '–'}
                         disabled
                     />
                 ),

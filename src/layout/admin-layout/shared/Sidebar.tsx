@@ -32,20 +32,32 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
         navigate(paths.HOME, { replace: true });
     }, [navigate, logout]);
 
+    const isAdminActive = location.pathname.startsWith(paths.ADMIN);
+    const isReestrActive = location.pathname.startsWith(paths.REESTR_ADMIN);
+
     const menuItems: MenuProps['items'] = useMemo(
         () =>
             [
                 {
                     key: paths.ADMIN,
-                    label: 'Science Id',
+                    label: (
+                        <div
+                            className={`text-base font-semibold transition-colors rounded-lg px-2 py-1 -mx-2 ${isAdminActive
+                                ? 'text-blue-light '
+                                : 'text-gray-light-10'
+                                }`}
+                        >
+                            Science Id
+                        </div>
+                    ),
                     children: [
                         {
                             key: paths.DASHBOARD,
-                            icon: <BarChart size={16} />,
+                            icon: <BarChart size={18} />,
                             label: (
                                 <Link
                                     to={paths.DASHBOARD}
-                                    className="text-gray-light-10"
+                                    className="text-gray-light-10 text-[15px] font-medium"
                                 >
                                     Dashboard
                                 </Link>
@@ -53,11 +65,11 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
                         },
                         {
                             key: paths.USERS,
-                            icon: <Users size={16} />,
+                            icon: <Users size={18} />,
                             label: (
                                 <Link
                                     to={paths.USERS}
-                                    className="text-gray-light-10"
+                                    className="text-gray-light-10 text-[15px] font-medium"
                                 >
                                     Foydalanuvchilar
                                 </Link>
@@ -67,15 +79,24 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
                 },
                 {
                     key: paths.REESTR_ADMIN,
-                    label: 'Reestr',
+                    label: (
+                        <div
+                            className={`text-base font-semibold transition-colors rounded-lg px-2 py-1 -mx-2 ${isReestrActive
+                                ? 'text-blue-light'
+                                : 'text-gray-light-10'
+                                }`}
+                        >
+                            Reestr
+                        </div>
+                    ),
                     children: [
                         {
                             key: paths.REESTR_DASHBOARD,
-                            icon: <BarChart size={16} />,
+                            icon: <BarChart size={18} />,
                             label: (
                                 <Link
                                     to={paths.REESTR_DASHBOARD}
-                                    className="text-gray-light-10"
+                                    className="text-gray-light-10 text-[15px] font-medium"
                                 >
                                     Dashboard
                                 </Link>
@@ -83,11 +104,11 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
                         },
                         {
                             key: paths.REESTR_ORGANIZATIONS,
-                            icon: <Building2 size={16} />,
+                            icon: <Building2 size={18} />,
                             label: (
                                 <Link
                                     to={paths.REESTR_ORGANIZATIONS}
-                                    className="text-gray-light-10"
+                                    className="text-gray-light-10 text-[15px] font-medium"
                                 >
                                     Tashkilotlar
                                 </Link>
@@ -96,7 +117,7 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
                     ],
                 },
             ].filter(Boolean) as MenuProps['items'],
-        []
+        [isAdminActive, isReestrActive]
     );
 
     return (
@@ -140,7 +161,7 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
                         className="border-0"
                         style={{
                             backgroundColor: 'transparent',
-                            fontSize: '14px',
+                            fontSize: '15px',
                         }}
                     />
                 </div>

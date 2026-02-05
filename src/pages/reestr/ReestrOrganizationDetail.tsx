@@ -4,7 +4,7 @@ import { HeaderTitle, PageLoading } from '@/components';
 import { useReestrOrganizationDetailQuery } from '@/hooks';
 import { paths } from '@/routes';
 import { getReestrLabelUz } from '@/constants';
-import { formatPhoneNumber, fullDateFormat } from '@/helpers';
+import { fullDateFormat } from '@/helpers';
 import type {
     ReestrOrganizationDetailResponse,
     Director,
@@ -116,7 +116,7 @@ const ReestrOrganizationDetail: React.FC = () => {
                             value={(d.director as Director).fullname}
                             className="bg-gray-50/30"
                         />
-                        <DetailRow label="Telefon" value={formatPhoneNumber((d.director as Director).phone)} />
+                        <DetailRow label="Telefon" value={(d.director as Director).phone} />
                         <DetailRow label="Email" value={(d.director as Director).email} className="bg-gray-50/30" />
                     </div>
                 </div>
@@ -183,7 +183,7 @@ const ReestrOrganizationDetail: React.FC = () => {
                         <SectionTitle title="Aloqa" />
                     </div>
                     <div className="divide-y divide-gray-100">
-                        <DetailRow label="Telefon" value={formatPhoneNumber(d.phone)} className="bg-gray-50/30" />
+                        <DetailRow label="Telefon" value={d.phone} className="bg-gray-50/30" />
                         <DetailRow label="Email" value={d.email} />
                         <DetailRow label="Veb-sayt" value={d.website} className="bg-gray-50/30" />
                         <DetailRow label="Faks" value={d.fax} />

@@ -112,6 +112,7 @@ const TableComponent = <T extends Record<string, any> = any>({
         pagination={false}
         scroll={scroll}
         size={tableSize}
+        tableLayout="fixed"
         className={tableClassName || 'overflow-x-auto'}
         onRow={onRow}
         rowSelection={rowSelection}
