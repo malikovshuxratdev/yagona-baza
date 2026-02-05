@@ -1,15 +1,14 @@
 import React, { createContext, useCallback, useContext, useState } from 'react';
-
-const AUTH_KEY = 'auth_logged_in';
+import { TokenService } from '@/utils/storage';
 
 function getInitialLoggedIn(): boolean {
     if (typeof window === 'undefined') return false;
-    return sessionStorage.getItem(AUTH_KEY) === '1';
+    return !!TokenService.getAccessKey();
 }
 
 interface AuthContextValue {
     isLoggedIn: boolean;
-    login: () => void;
+    login: (accessKey: string) => void;
     logout: () => void;
 }
 
@@ -18,13 +17,13 @@ const AuthContext = createContext<AuthContextValue | null>(null);
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const [isLoggedIn, setIsLoggedIn] = useState(getInitialLoggedIn);
 
-    const login = useCallback(() => {
-        sessionStorage.setItem(AUTH_KEY, '1');
+    const login = useCallback((accessKey: string) => {
+        TokenService.setAccessKey(accessKey);
         setIsLoggedIn(true);
     }, []);
 
     const logout = useCallback(() => {
-        sessionStorage.removeItem(AUTH_KEY);
+        TokenService.clearAccessKey();
         setIsLoggedIn(false);
     }, []);
 

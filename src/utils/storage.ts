@@ -9,6 +9,10 @@ export class TokenService {
         return localStorage.getItem(SessionKeys.TOKEN);
     }
 
+    static getAccessKey() {
+        return localStorage.getItem(SessionKeys.ACCESS_KEY);
+    }
+
     static getRefreshToken() {
         return localStorage.getItem(SessionKeys.REFRESH_TOKEN);
     }
@@ -16,6 +20,14 @@ export class TokenService {
     static setToken(accessToken: string, refreshToken: string) {
         localStorage.setItem(SessionKeys.TOKEN, accessToken);
         localStorage.setItem(SessionKeys.REFRESH_TOKEN, refreshToken);
+    }
+
+    static setAccessKey(accessKey: string) {
+        localStorage.setItem(SessionKeys.ACCESS_KEY, accessKey);
+    }
+
+    static clearAccessKey() {
+        localStorage.removeItem(SessionKeys.ACCESS_KEY);
     }
 
     static clearTokens() {

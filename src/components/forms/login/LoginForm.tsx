@@ -14,6 +14,11 @@ export interface LoginFormValues {
     password: string;
 }
 
+function getMockAccessToken(login: string): string {
+    const payload = { sub: login, iat: Date.now() };
+    return btoa(unescape(encodeURIComponent(JSON.stringify(payload))));
+}
+
 const LoginForm: React.FC = () => {
     const navigate = useNavigate();
     const { login } = useAuth();
@@ -25,13 +30,17 @@ const LoginForm: React.FC = () => {
         },
     });
 
-    const onSubmit = (values: LoginFormValues) => {
-        if (values.login === 'admin' && values.password === 'admin123') {
-            login();
+    const onSubmit = async (values: LoginFormValues) => {
+        const trimmedLogin = values.login.trim();
+
+        if (trimmedLogin === 'admin' && values.password === 'admin123') {
+            const accessKey = getMockAccessToken(trimmedLogin);
+            login(accessKey);
             navigate(paths.DASHBOARD, { replace: true });
             toast.success("Tizimga muvaffaqiyatli kirdingiz");
             return;
         }
+
         toast.error("Login yoki parol noto'g'ri");
     };
 
@@ -41,11 +50,14 @@ const LoginForm: React.FC = () => {
                 <img src={logoImg} alt="Yagona baza" className="h-14 w-auto" />
             </div>
             <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-5">
+                <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-5" noValidate>
                     <FormField
                         control={form.control}
                         name="login"
-                        rules={{ required: 'Login kiriting' }}
+                        rules={{
+                            required: 'Login kiriting',
+                            minLength: { value: 2, message: 'Login kamida 2 ta belgidan iborat bo‘lishi kerak' },
+                        }}
                         render={({ field }) => (
                             <FormItem>
                                 <FormLabel className="text-base font-medium text-black">
@@ -63,6 +75,7 @@ const LoginForm: React.FC = () => {
                                             fontSize: '16px',
                                         }}
                                         autoComplete="username"
+                                        disabled={form.formState.isSubmitting}
                                     />
                                 </FormControl>
                                 <FormMessage />
@@ -72,7 +85,10 @@ const LoginForm: React.FC = () => {
                     <FormField
                         control={form.control}
                         name="password"
-                        rules={{ required: 'Parol kiriting' }}
+                        rules={{
+                            required: 'Parol kiriting',
+                            minLength: { value: 6, message: 'Parol kamida 6 ta belgidan iborat bo‘lishi kerak' },
+                        }}
                         render={({ field }) => (
                             <FormItem>
                                 <FormLabel className="text-base font-medium text-black">
@@ -90,6 +106,7 @@ const LoginForm: React.FC = () => {
                                             fontSize: '16px',
                                         }}
                                         autoComplete="current-password"
+                                        disabled={form.formState.isSubmitting}
                                     />
                                 </FormControl>
                                 <FormMessage />
@@ -102,7 +119,7 @@ const LoginForm: React.FC = () => {
                         className="w-full h-12 text-base font-semibold bg-blue text-white hover:bg-blue/90"
                         disabled={form.formState.isSubmitting}
                     >
-                        {form.formState.isSubmitting ? 'Kirish...' : 'Tizimga kirish'}
+                        {form.formState.isSubmitting ? 'Kutilmoqda...' : 'Tizimga kirish'}
                     </Button>
                 </form>
             </Form>
