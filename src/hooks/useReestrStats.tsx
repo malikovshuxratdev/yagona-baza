@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { useQuery } from "./useQuery";
 import { reestrApi } from "@/api";
 
@@ -29,3 +29,79 @@ export const useReestrRegionStatisticsQuery = (soato: number) => {
         refetchOnReconnect: true,
     });
 }
+
+const defaultOrgListParams = {
+    name_search: '',
+    page: 1,
+    page_size: 20,
+    tin_search: '',
+} as const;
+
+export type ReestrOrganizationListParams = {
+    name_search: string;
+    page: number;
+    page_size: number;
+    tin_search: string;
+};
+
+export const useReestrOrganizationListQuery = () => {
+    const [params, setParams] = useState<ReestrOrganizationListParams>({
+        ...defaultOrgListParams,
+    });
+
+    const query = useQuery({
+        queryKey: ['reestr-organization-list', params],
+        queryFn: () => reestrApi.getReestrOrganizationList(params),
+        refetchOnWindowFocus: true,
+        refetchOnReconnect: true,
+    });
+
+    const resData = useMemo(() => query.data?.data ?? [], [query.data]);
+
+    const pagination = useMemo(
+        () => ({
+            page: query.data?.page ?? params.page,
+            pageSize: query.data?.pageSize ?? params.page_size,
+            total: query.data?.total ?? 0,
+            totalPages: query.data?.pagesCount ?? Math.ceil((query.data?.total ?? 0) / params.page_size),
+        }),
+        [params.page, params.page_size, query.data]
+    );
+
+    const setPage = (page: number) => {
+        setParams((prev) => ({ ...prev, page }));
+    };
+
+    const setPageSize = (page_size: number) => {
+        setParams((prev) => ({ ...prev, page_size, page: 1 }));
+    };
+
+    const setNameSearch = (name_search: string) => {
+        setParams((prev) => ({ ...prev, name_search, page: 1 }));
+    };
+
+    const setTinSearch = (tin_search: string) => {
+        setParams((prev) => ({ ...prev, tin_search, page: 1 }));
+    };
+
+    return {
+        ...query,
+        resData,
+        pagination,
+        nameSearch: params.name_search,
+        tinSearch: params.tin_search,
+        setPage,
+        setPageSize,
+        setNameSearch,
+        setTinSearch,
+    };
+};
+
+export const useReestrOrganizationDetailQuery = (id: number) => {
+    return useQuery({
+        queryKey: ['reestr-organization-detail', id],
+        queryFn: () => reestrApi.getReestrOrganizationDetail(id),
+        refetchOnWindowFocus: true,
+        refetchOnReconnect: true,
+    });
+};

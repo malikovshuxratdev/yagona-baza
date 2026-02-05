@@ -3,13 +3,17 @@ import { reestrApiClient } from "@/api/baseClient";
 import {
     ReestrOrgClassStatisticsResponse,
     ReestrPassportTemplateStatisticsResponse,
-    ReestrRegionStatisticsResponse
+    ReestrRegionStatisticsResponse,
+    ReestrOrganizationListResponse,
+    ReestrOrganizationDetailResponse
 } from "@/types";
 
 const urls = {
     getOrgClassStatistics: '/statistics/by/org-class',
     getPassportTemplateStatistics: "/statistics/by/passport-template",
     getRegionStatistics: "/statistics/by/region",
+    getReestrOrganizationList: "/statistics/organizations/",
+    getReestrOrganizationDetail: (id: number) => `/statistics/organizations/${id}`,
 }
 
 export class ReestrApi {
@@ -32,6 +36,19 @@ export class ReestrApi {
             await this.api.get(urls.getRegionStatistics, params);
         return result.data;
     };
+
+    getReestrOrganizationList = async (params: { name_search: string, page: number, page_size: number, tin_search: string }) => {
+        const result: AxiosResponse<ReestrOrganizationListResponse> =
+            await this.api.get(urls.getReestrOrganizationList, params);
+        return result.data;
+    };
+
+    getReestrOrganizationDetail = async (id: number) => {
+        const result: AxiosResponse<ReestrOrganizationDetailResponse> =
+            await this.api.get(urls.getReestrOrganizationDetail(id));
+        return result.data;
+    };
+
 }
 
 export const reestrApi = new ReestrApi();

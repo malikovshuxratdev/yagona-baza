@@ -1,11 +1,8 @@
 import React from 'react';
+import { ReestrOrganizationsTable } from './components';
 
 const ReestrOrganizationsPage: React.FC = () => {
-    return (
-        <div>
-            <h2 className="text-lg font-medium text-gray-900">Reestr – Tashkilotlar</h2>
-        </div>
-    );
+    return <ReestrOrganizationsTable />;
 };
 
 export default ReestrOrganizationsPage;
