@@ -1,6 +1,6 @@
 import { lazy, Suspense } from 'react';
 import paths from '@/routes/path';
-import { createBrowserRouter, RouteObject } from 'react-router';
+import { createBrowserRouter, Navigate, RouteObject } from 'react-router';
 import { PageLoading } from '@/components/loader';
 import { RouterErrorBoundary } from '@/components/error-boundary';
 
@@ -18,6 +18,14 @@ const UserDetailPage = lazy(() => import('@/pages/science-id/UserDetailPage'));
 const ReestrDashboardPage = lazy(() => import('@/pages/reestr/DashboardPage'));
 const ReestrOrganizationsPage = lazy(() => import('@/pages/reestr/ReestrOrganizationsPage'));
 const ReestrOrganizationDetail = lazy(() => import('@/pages/reestr/ReestrOrganizationDetail'));
+
+// Internship pages
+const InternshipDashboardPage = lazy(() => import('@/pages/internship/DashboardPage'));
+const InternshipApplicationsPage = lazy(() => import('@/pages/internship/InternshipApplicationsPage'));
+const InternshipApplicationDetail = lazy(() => import('@/pages/internship/InternshipApplicationDetail'));
+
+// Academic mobility pages
+const AcademicDashboardPage = lazy(() => import('@/pages/academic/DashboardPage'));
 
 const NotFoundPage = lazy(() => import('@/pages/not-found/NotFoundPage'));
 
@@ -96,6 +104,56 @@ const Router: RouteObject[] = [
             {
                 path: paths.REESTR_ORGANIZATION_VIEW,
                 element: <ReestrOrganizationDetail />,
+                errorElement: <RouterErrorBoundary />,
+            },
+        ],
+    },
+    {
+        path: paths.INTERNSHIP_ADMIN,
+        element: (
+            <Suspense fallback={<PageLoading />}>
+                <AdminLayout />
+            </Suspense>
+        ),
+        errorElement: <RouterErrorBoundary />,
+        children: [
+            {
+                index: true,
+                element: <Navigate to={paths.INTERNSHIP_DASHBOARD} replace />,
+            },
+            {
+                path: paths.INTERNSHIP_DASHBOARD,
+                element: <InternshipDashboardPage />,
+                errorElement: <RouterErrorBoundary />,
+            },
+            {
+                path: paths.INTERNSHIP_APPLICATIONS,
+                element: <InternshipApplicationsPage />,
+                errorElement: <RouterErrorBoundary />,
+            },
+            {
+                path: paths.INTERNSHIP_APPLICATION_VIEW,
+                element: <InternshipApplicationDetail />,
+                errorElement: <RouterErrorBoundary />,
+            },
+        ],
+    },
+    {
+        path: paths.ACADEMIC_ADMIN,
+        element: (
+            <Suspense fallback={<PageLoading />}>
+                <AdminLayout />
+            </Suspense>
+        ),
+        errorElement: <RouterErrorBoundary />,
+        children: [
+            {
+                index: true,
+                element: <Navigate to={paths.ACADEMIC_DASHBOARD} replace />,
+            },
+            {
+                path: paths.ACADEMIC_DASHBOARD,
+                element: <AcademicDashboardPage />,
                 errorElement: <RouterErrorBoundary />,
             },
         ],

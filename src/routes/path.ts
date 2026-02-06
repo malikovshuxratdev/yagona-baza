@@ -15,6 +15,16 @@ export const REESTR_DASHBOARD = '/reestr/dashboard';
 export const REESTR_ORGANIZATIONS = '/reestr/organizations';
 export const REESTR_ORGANIZATION_VIEW = '/reestr/organizations/view/:id';
 
+// internship section
+export const INTERNSHIP_ADMIN = '/internship';
+export const INTERNSHIP_DASHBOARD = '/internship/dashboard';
+export const INTERNSHIP_APPLICATIONS = '/internship/applications';
+export const INTERNSHIP_APPLICATION_VIEW = '/internship/applications/view/:id';
+
+// academic mobility section
+export const ACADEMIC_ADMIN = '/academic';
+export const ACADEMIC_DASHBOARD = '/academic/dashboard';
+
 const paths = {
     PAGE_NOT_FOUND,
     HOME,
@@ -26,6 +36,12 @@ const paths = {
     REESTR_DASHBOARD,
     REESTR_ORGANIZATIONS,
     REESTR_ORGANIZATION_VIEW,
+    INTERNSHIP_ADMIN,
+    INTERNSHIP_DASHBOARD,
+    INTERNSHIP_APPLICATIONS,
+    INTERNSHIP_APPLICATION_VIEW,
+    ACADEMIC_ADMIN,
+    ACADEMIC_DASHBOARD,
 };
 
 export default paths;

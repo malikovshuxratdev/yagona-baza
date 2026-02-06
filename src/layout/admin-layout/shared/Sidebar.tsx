@@ -3,6 +3,7 @@ import {
     Users,
     BarChart,
     Building2,
+    Briefcase,
 } from 'lucide-react';
 import { LogoutOutlined } from '@ant-design/icons';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
@@ -23,10 +24,12 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
     const location = useLocation();
     const navigate = useNavigate();
     const { logout } = useAuth();
-    const [openKeys, setOpenKeys] = useState<string[]>([paths.ADMIN, paths.REESTR_ADMIN]);
-
-
-
+    const [openKeys, setOpenKeys] = useState<string[]>([
+        paths.ADMIN,
+        paths.REESTR_ADMIN,
+        paths.INTERNSHIP_ADMIN,
+        paths.ACADEMIC_ADMIN,
+    ]);
     const handleLogout = useCallback(() => {
         logout();
         navigate(paths.HOME, { replace: true });
@@ -34,6 +37,8 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
 
     const isAdminActive = location.pathname.startsWith(paths.ADMIN);
     const isReestrActive = location.pathname.startsWith(paths.REESTR_ADMIN);
+    const isInternshipActive = location.pathname.startsWith(paths.INTERNSHIP_ADMIN);
+    const isAcademicActive = location.pathname.startsWith(paths.ACADEMIC_ADMIN);
 
     const menuItems: MenuProps['items'] = useMemo(
         () =>
@@ -116,8 +121,72 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
                         },
                     ],
                 },
+                {
+                    key: paths.INTERNSHIP_ADMIN,
+                    label: (
+                        <div
+                            className={`text-base font-semibold transition-colors rounded-lg px-2 py-1 -mx-2 ${isInternshipActive
+                                ? 'text-blue-light'
+                                : 'text-gray-light-10'
+                                }`}
+                        >
+                            Internship
+                        </div>
+                    ),
+                    children: [
+                        {
+                            key: paths.INTERNSHIP_DASHBOARD,
+                            icon: <BarChart size={18} />,
+                            label: (
+                                <Link
+                                    to={paths.INTERNSHIP_DASHBOARD}
+                                    className="text-gray-light-10 text-[15px] font-medium"
+                                >
+                                    Dashboard
+                                </Link>
+                            ),
+                        },
+                        // {
+                        //     key: paths.INTERNSHIP_APPLICATIONS,
+                        //     icon: <Briefcase size={18} />,
+                        //     label: (
+                        //         <Link
+                        //             to={paths.INTERNSHIP_APPLICATIONS}
+                        //             className="text-gray-light-10 text-[15px] font-medium"
+                        //         >
+                        //             Arizalar
+                        //         </Link>
+                        //     ),
+                        // },
+                    ],
+                },
+                {
+                    key: paths.ACADEMIC_ADMIN,
+                    label: (
+                        <div
+                            className={`text-base font-semibold transition-colors rounded-lg px-2 py-1 -mx-2 ${isAcademicActive ? 'text-blue-light' : 'text-gray-light-10'
+                                }`}
+                        >
+                            Akadem
+                        </div>
+                    ),
+                    children: [
+                        {
+                            key: paths.ACADEMIC_DASHBOARD,
+                            icon: <Briefcase size={18} />,
+                            label: (
+                                <Link
+                                    to={paths.ACADEMIC_DASHBOARD}
+                                    className="text-gray-light-10 text-[15px] font-medium"
+                                >
+                                    Dashboard
+                                </Link>
+                            ),
+                        },
+                    ],
+                },
             ].filter(Boolean) as MenuProps['items'],
-        [isAdminActive, isReestrActive]
+        [isAdminActive, isReestrActive, isInternshipActive, isAcademicActive]
     );
 
     return (

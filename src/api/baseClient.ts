@@ -8,13 +8,20 @@ import Axios, {
 import { buildParams } from './helpers';
 import { TokenService } from '@/utils/storage';
 import paths from '@/routes/path';
-import { SCIENCEID_URL, REESTR_URL } from '@/constants';
+import {
+    SCIENCEID_URL,
+    REESTR_URL,
+    INTERNSHIP_URL,
+    INTERNSHIP_BASIC_AUTH_USERNAME,
+    INTERNSHIP_BASIC_AUTH_PASSWORD,
+} from '@/constants';
 
-export type ApiClientKey = 'scienceId' | 'reestr';
+export type ApiClientKey = 'scienceId' | 'reestr' | 'internship';
 
 const URL_MAP: Record<ApiClientKey, string> = {
     scienceId: SCIENCEID_URL,
     reestr: REESTR_URL,
+    internship: INTERNSHIP_URL,
 };
 
 declare module 'axios' {
@@ -32,13 +39,22 @@ export class HTTPError extends Error {
 export class BaseClient {
     private baseUrl: string;
     private axios: AxiosInstance;
+    private key: ApiClientKey;
     private static instances: Partial<Record<ApiClientKey, BaseClient>> = {};
 
-    private constructor(baseUrl: string) {
+    private constructor(baseUrl: string, key: ApiClientKey) {
         this.baseUrl = baseUrl;
+        this.key = key;
         this.axios = Axios.create({
             baseURL: this.baseUrl,
         });
+
+        if (key === 'internship' && INTERNSHIP_BASIC_AUTH_USERNAME && INTERNSHIP_BASIC_AUTH_PASSWORD) {
+            this.axios.defaults.auth = {
+                username: INTERNSHIP_BASIC_AUTH_USERNAME,
+                password: INTERNSHIP_BASIC_AUTH_PASSWORD,
+            };
+        }
 
         this.axios.interceptors.request.use(this.attachToken);
         this.axios.interceptors.response.use(
@@ -53,12 +69,14 @@ export class BaseClient {
             if (!baseUrl) {
                 throw new Error(`Unknown API client key: ${key}`);
             }
-            BaseClient.instances[key] = new BaseClient(baseUrl);
+            BaseClient.instances[key] = new BaseClient(baseUrl, key);
         }
         return BaseClient.instances[key];
     }
 
     private attachToken = async (req: InternalAxiosRequestConfig) => {
+        if (this.key === 'internship') return req;
+
         const token = TokenService.getToken();
 
         if (token && !req.headers['Authorization']) {
@@ -70,6 +88,7 @@ export class BaseClient {
     };
 
     private onApiError = async (error: AxiosError) => {
+        if (this.key === 'internship') return Promise.reject(error);
         if (error.response?.status === 401) {
             TokenService.clearTokens();
             window.location.href = paths.HOME;
@@ -123,3 +142,4 @@ export class BaseClient {
 
 export const scienceIdApiClient = BaseClient.getInstance('scienceId');
 export const reestrApiClient = BaseClient.getInstance('reestr');
+export const internshipApiClient = BaseClient.getInstance('internship');

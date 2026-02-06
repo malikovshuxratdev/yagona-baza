@@ -1,5 +1,3 @@
-import { NameType } from "@/types/reuseType"
-
 export type ReestrOrgClassStatisticsResponse = ReestrOrgClassStatisticsItem[]
 
 export interface ReestrOrgClassStatisticsItem {
@@ -134,23 +132,17 @@ export interface District {
     region: Region
     created_at: string
     updated_at: string
-    name: Name2
+    name: NameType
     soato: string
 }
 
 export interface Region {
     id: number
-    name: Name
+    name: NameType
     soato: string
 }
 
-export interface Name {
-    oz: string
-    ru: string
-    uz: string
-}
-
-export interface Name2 {
+export interface NameType {
     oz: string
     ru: string
     uz: string
