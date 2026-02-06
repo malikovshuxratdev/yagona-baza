@@ -34,7 +34,7 @@ const ReestrOrganizationsTable: React.FC = () => {
 
     return (
         <div className="w-full space-y-4">
-            <HeaderTitle title="Reestr – Tashkilotlar" total={pagination.total} />
+            <HeaderTitle title="Tashkilotlar" total={pagination.total} />
             <div className="rounded-md border bg-card overflow-hidden">
                 <div className="p-4 border-b bg-muted/30">
                     <ReestrOrganizationsTableHeader

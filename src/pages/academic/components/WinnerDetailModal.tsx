@@ -27,7 +27,7 @@ const WinnerDetailModal: React.FC<WinnerDetailModalProps> = ({
         <Dialog open={open} onOpenChange={onOpenChange}>
             <DialogContent className="sm:max-w-2xl max-h-[90vh] overflow-y-auto bg-white">
                 <DialogHeader>
-                    <DialogTitle>G'olib (batafsil)</DialogTitle>
+                    <DialogTitle>Tanlov g'olibi</DialogTitle>
                 </DialogHeader>
                 <div className="space-y-5 py-2">
                     {/* Scientist */}

@@ -51,14 +51,14 @@ const LevelRegionGrid: React.FC = () => {
     const regionStats = useMemo(
         () => [
             {
-                label: 'Doktarantura tashkilotlar jami',
+                label: 'Jami tashkilotlar',
                 value: formatNumber(selectedRegionData.doktarantura_tashkilotlar_jami),
             },
             { label: 'OTM', value: formatNumber(selectedRegionData.otm) },
             { label: 'ITM', value: formatNumber(selectedRegionData.itm) },
-            { label: 'Boshqalari', value: formatNumber(selectedRegionData.boshqa) },
+            { label: 'Boshqa tashkilotlar', value: formatNumber(selectedRegionData.boshqa) },
             {
-                label: 'Doktaranturalar soni',
+                label: 'Izlanuvchilar soni',
                 value: formatNumber(selectedRegionData.doktaranturalar_soni),
             },
         ],
@@ -69,7 +69,7 @@ const LevelRegionGrid: React.FC = () => {
         <div className="flex flex-col lg:flex-row gap-4 sm:gap-6 lg:gap-8">
             <div className="w-full lg:flex-1 bg-gray-50 rounded-2xl shadow-sm p-6">
                 <h2 className="text-lg font-semibold text-black mb-4">
-                    Hududlar bo'yicha ma'lumot
+                    Hududlar kesimida ma'lumot
                 </h2>
                 <MapContainer
                     mapId="level-uzbekistan-map"
@@ -84,7 +84,7 @@ const LevelRegionGrid: React.FC = () => {
                     <Card className="h-full">
                         <CardHeader>
                             <CardTitle className="text-xl">
-                                {selectedRegionData.region_name} bo'yicha statistikalar
+                                {selectedRegionData.region_name} bo‘yicha ma'lumot
                             </CardTitle>
                         </CardHeader>
                         <CardContent className="space-y-3">

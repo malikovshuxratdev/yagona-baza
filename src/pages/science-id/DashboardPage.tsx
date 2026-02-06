@@ -10,7 +10,7 @@ const DashboardPage: React.FC = () => {
         <div className="mx-auto space-y-2">
             <div className="text-center mb-2">
                 <h2 className="text-lg sm:text-xl md:text-2xl font-medium text-gray-900 mb-3 sm:mb-6">
-                    Science ID statistikasi
+                    Ilmiy-innovatsion faoliyat bilan shug’ullanuvchi jismoniy shaxslar haqida umumiy ma’lumot
                 </h2>
             </div>
             <UserRegisterChartComponent />

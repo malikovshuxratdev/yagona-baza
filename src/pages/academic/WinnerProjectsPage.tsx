@@ -30,7 +30,7 @@ const WinnerProjectsPage: React.FC = () => {
 
     return (
         <div className="w-full space-y-4">
-            <HeaderTitle title="G'olib loyihalar" total={pagination.total} />
+            <HeaderTitle title="Tanlov g'oliblari" total={pagination.total} />
             <div className="rounded-md border bg-card overflow-hidden">
                 <div className="p-0">
                     <TableComponent<AkademWinner>
@@ -43,8 +43,7 @@ const WinnerProjectsPage: React.FC = () => {
                         setPage={setPage}
                         setPageSize={setPageSize}
                         emptyStateTitle="Ma'lumot yo'q"
-                        emptyStateDescription="G'olib loyihalar topilmadi."
-                        showSizeChanger
+                        emptyStateDescription="Tanlov g'oliblari topilmadi."
                         scroll={{ x: 800 }}
                     />
                 </div>

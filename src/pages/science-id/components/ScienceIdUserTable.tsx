@@ -18,7 +18,7 @@ const ScienceIdUserTable: React.FC = () => {
 
     return (
         <div className="w-full">
-            <HeaderTitle title="Foydalanuvchilar" total={pagination.total} />
+            <HeaderTitle title="Ilmiy-innovatsion faoliyat bilan shug’ullanuvchi jismoniy shaxslar" total={pagination.total} />
             <TableComponent
                 data={resData}
                 columns={columns}

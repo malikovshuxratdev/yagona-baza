@@ -55,7 +55,7 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
                         <span
                             className={`text-base font-semibold transition-colors ${isAdminActive ? 'text-blue-light' : 'text-gray-light-10'}`}
                         >
-                            Science Id
+                            id.ilmiy.uz
                         </span>
                     ),
                     children: [
@@ -92,7 +92,7 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
                         <span
                             className={`text-base font-semibold transition-colors ${isReestrActive ? 'text-blue-light' : 'text-gray-light-10'}`}
                         >
-                            Reestr
+                            reestr.ilmiy.uz
                         </span>
                     ),
                     children: [
@@ -129,7 +129,7 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
                         <span
                             className={`text-base font-semibold transition-colors ${isInternshipActive ? 'text-blue-light' : 'text-gray-light-10'}`}
                         >
-                            Internship
+                            internship.ilmiy.uz
                         </span>
                     ),
                     children: [
@@ -145,18 +145,6 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
                                 </Link>
                             ),
                         },
-                        // {
-                        //     key: paths.INTERNSHIP_APPLICATIONS,
-                        //     icon: <Briefcase size={18} />,
-                        //     label: (
-                        //         <Link
-                        //             to={paths.INTERNSHIP_APPLICATIONS}
-                        //             className="text-gray-light-10 text-[15px] font-medium"
-                        //         >
-                        //             Arizalar
-                        //         </Link>
-                        //     ),
-                        // },
                     ],
                 },
                 {
@@ -166,7 +154,7 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
                         <span
                             className={`text-base font-semibold transition-colors ${isAcademicActive ? 'text-blue-light' : 'text-gray-light-10'}`}
                         >
-                            Akadem
+                            akadem.ilmiy.uz
                         </span>
                     ),
                     children: [
@@ -190,7 +178,7 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
                                     to={paths.ACADEMIC_WINNER_PROJECTS}
                                     className="text-gray-light-10 text-[15px] font-medium"
                                 >
-                                    G'olib loyihalar
+                                    Tanlov g'oliblari
                                 </Link>
                             ),
                         },
@@ -203,7 +191,7 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
                         <span
                             className={`text-base font-semibold transition-colors ${isLevelActive ? 'text-blue-light' : 'text-gray-light-10'}`}
                         >
-                            Daraja
+                            daraja.ilmiy.uz
                         </span>
                     ),
                     children: [
