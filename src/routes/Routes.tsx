@@ -28,8 +28,7 @@ const InternshipApplicationDetail = lazy(() => import('@/pages/internship/Intern
 const AcademicDashboardPage = lazy(() => import('@/pages/academic/DashboardPage'));
 
 // Daraja pages
-const DarajaDashboardPage = lazy(() => import('@/pages/daraja/DashboardPage'));
-
+const LevelDashboardPage = lazy(() => import('@/pages/level/DashboardPage'));
 const NotFoundPage = lazy(() => import('@/pages/not-found/NotFoundPage'));
 
 const Router: RouteObject[] = [
@@ -176,7 +175,7 @@ const Router: RouteObject[] = [
             },
             {
                 path: paths.LEVEL_DASHBOARD,
-                element: <DarajaDashboardPage />,
+                element: <LevelDashboardPage />,
                 errorElement: <RouterErrorBoundary />,
             },
         ],

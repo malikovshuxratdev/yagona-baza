@@ -4,3 +4,4 @@ export * from './useStatisticsQuery';
 export * from './useReestrStats';
 export * from './useInternshipStats';
 export * from './useAcademStats';
+export * from './useLevelStats';
