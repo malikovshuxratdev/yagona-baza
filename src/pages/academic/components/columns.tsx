@@ -54,7 +54,7 @@ export const useWinnerProjectsColumns = ({
                 render: (_: unknown, record: AkademWinner) => (
                     <TableText
                         text={record.project_name ?? '–'}
-                        onClick={() => onView(record)}
+                        disabled
                     />
                 ),
             },
@@ -65,7 +65,7 @@ export const useWinnerProjectsColumns = ({
                 render: (_: unknown, record: AkademWinner) => (
                     <TableText
                         text={`${formatNumber(record.total_amount ?? '')} so'm`}
-                        onClick={() => onView(record)}
+                        disabled
                     />
                 ),
             },

@@ -19,7 +19,7 @@ export const useAcademWinnersQuery = () => {
 
     const query = useQuery({
         queryKey: ['academ-winners', params],
-        queryFn: () => academApi.getAcademWinners(params.page, params.page_size),
+        queryFn: () => academApi.getAcademWinners(params),
         refetchOnWindowFocus: true,
         refetchOnReconnect: true,
     });
@@ -40,8 +40,8 @@ export const useAcademWinnersQuery = () => {
         setParams((prev) => ({ ...prev, page }));
     };
 
-    const setPageSize = (page_size: number) => {
-        setParams((prev) => ({ ...prev, page_size }));
+    const setPageSize = (pageSize: number) => {
+        setParams((prev) => ({ ...prev, pageSize }));
     };
 
     return {
