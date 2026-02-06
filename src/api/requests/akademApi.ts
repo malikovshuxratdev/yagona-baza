@@ -1,26 +1,26 @@
 import { AxiosResponse } from "axios";
-import { akademApiClient } from "../baseClient";
+import { academApiClient } from "../baseClient";
 import { AkademStatisticsResponse, AkademWinnersResponse } from "@/types";
 
 const urls = {
-    getAkademStatistics: '/stats/',
-    getAkademWinners: '/stats/winners',
-}
+    getAcademStatistics: '/stats/',
+    getAcademWinners: '/stats/winners',
+};
 
-export class AkademApi {
-    constructor(private api = akademApiClient) { }
+export class AcademApi {
+    constructor(private api = academApiClient) { }
 
-    getAkademStatistics = async () => {
+    getAcademStatistics = async () => {
         const result: AxiosResponse<AkademStatisticsResponse> =
-            await this.api.get(urls.getAkademStatistics);
+            await this.api.get(urls.getAcademStatistics);
         return result.data;
     };
 
-    getAkademWinners = async () => {
+    getAcademWinners = async () => {
         const result: AxiosResponse<AkademWinnersResponse> =
-            await this.api.get(urls.getAkademWinners);
+            await this.api.get(urls.getAcademWinners);
         return result.data;
     };
 }
 
-export const akademApi = new AkademApi();
+export const academApi = new AcademApi();

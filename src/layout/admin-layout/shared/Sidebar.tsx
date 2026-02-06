@@ -32,7 +32,7 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
         paths.REESTR_ADMIN,
         paths.INTERNSHIP_ADMIN,
         paths.ACADEMIC_ADMIN,
-        paths.DARAJAA_ADMIN,
+        paths.LEVEL_ADMIN,
     ]);
     const handleLogout = useCallback(() => {
         logout();
@@ -43,7 +43,7 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
     const isReestrActive = location.pathname.startsWith(paths.REESTR_ADMIN);
     const isInternshipActive = location.pathname.startsWith(paths.INTERNSHIP_ADMIN);
     const isAcademicActive = location.pathname.startsWith(paths.ACADEMIC_ADMIN);
-    const isDarajaActive = location.pathname.startsWith(paths.DARAJAA_ADMIN);
+    const isLevelActive = location.pathname.startsWith(paths.LEVEL_ADMIN);
 
     const menuItems: MenuProps['items'] = useMemo(
         () =>
@@ -185,22 +185,22 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
                     ],
                 },
                 {
-                    key: paths.DARAJAA_ADMIN,
+                    key: paths.LEVEL_ADMIN,
                     icon: <Layers size={18} className="shrink-0" />,
                     label: (
                         <span
-                            className={`text-base font-semibold transition-colors ${isDarajaActive ? 'text-blue-light' : 'text-gray-light-10'}`}
+                            className={`text-base font-semibold transition-colors ${isLevelActive ? 'text-blue-light' : 'text-gray-light-10'}`}
                         >
                             Daraja
                         </span>
                     ),
                     children: [
                         {
-                            key: paths.DARAJAA_DASHBOARD,
+                            key: paths.LEVEL_DASHBOARD,
                             icon: <BarChart size={18} />,
                             label: (
                                 <Link
-                                    to={paths.DARAJAA_DASHBOARD}
+                                    to={paths.LEVEL_DASHBOARD}
                                     className="text-gray-light-10 text-[15px] font-medium"
                                 >
                                     Dashboard
@@ -210,7 +210,7 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
                     ],
                 },
             ].filter(Boolean) as MenuProps['items'],
-        [isAdminActive, isReestrActive, isInternshipActive, isAcademicActive, isDarajaActive]
+        [isAdminActive, isReestrActive, isInternshipActive, isAcademicActive, isLevelActive]
     );
 
     return (

@@ -162,7 +162,7 @@ const Router: RouteObject[] = [
         ],
     },
     {
-        path: paths.DARAJAA_ADMIN,
+        path: paths.LEVEL_ADMIN,
         element: (
             <Suspense fallback={<PageLoading />}>
                 <AdminLayout />
@@ -172,10 +172,10 @@ const Router: RouteObject[] = [
         children: [
             {
                 index: true,
-                element: <Navigate to={paths.DARAJAA_DASHBOARD} replace />,
+                element: <Navigate to={paths.LEVEL_DASHBOARD} replace />,
             },
             {
-                path: paths.DARAJAA_DASHBOARD,
+                path: paths.LEVEL_DASHBOARD,
                 element: <DarajaDashboardPage />,
                 errorElement: <RouterErrorBoundary />,
             },

@@ -14,17 +14,19 @@ import {
     INTERNSHIP_URL,
     INTERNSHIP_BASIC_AUTH_USERNAME,
     INTERNSHIP_BASIC_AUTH_PASSWORD,
-    AKADEM_URL,
+    ACADEM_URL,
+    LEVEL_URL,
 } from '@/constants';
-import { ensureAkademToken, clearAkademToken } from './akademAuth';
+import { ensureAcademToken, clearAcademToken } from './akademAuth';
 
-export type ApiClientKey = 'scienceId' | 'reestr' | 'internship' | 'akadem';
+export type ApiClientKey = 'scienceId' | 'reestr' | 'internship' | 'academ' | 'level';
 
 const URL_MAP: Record<ApiClientKey, string> = {
     scienceId: SCIENCEID_URL,
     reestr: REESTR_URL,
     internship: INTERNSHIP_URL,
-    akadem: AKADEM_URL,
+    academ: ACADEM_URL,
+    level: LEVEL_URL,
 };
 
 declare module 'axios' {
@@ -78,8 +80,8 @@ export class BaseClient {
     }
 
     private attachToken = async (req: InternalAxiosRequestConfig) => {
-        if (this.key === 'akadem') {
-            const token = await ensureAkademToken();
+        if (this.key === 'academ') {
+            const token = await ensureAcademToken();
             req.headers = req.headers || {};
             req.headers['Authorization'] = `ClientAuth ${token}`;
             return req;
@@ -97,8 +99,8 @@ export class BaseClient {
     };
 
     private onApiError = async (error: AxiosError) => {
-        if (this.key === 'akadem' && error.response?.status === 401) {
-            clearAkademToken();
+        if (this.key === 'academ' && error.response?.status === 401) {
+            clearAcademToken();
             return Promise.reject(error);
         }
         if (this.key === 'internship') return Promise.reject(error);
@@ -156,4 +158,5 @@ export class BaseClient {
 export const scienceIdApiClient = BaseClient.getInstance('scienceId');
 export const reestrApiClient = BaseClient.getInstance('reestr');
 export const internshipApiClient = BaseClient.getInstance('internship');
-export const akademApiClient = BaseClient.getInstance('akadem');
+export const academApiClient = BaseClient.getInstance('academ');
+export const levelApiClient = BaseClient.getInstance('level');

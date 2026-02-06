@@ -1,6 +1,6 @@
 import React from 'react';
 import { formatNumber } from '@/helpers';
-import { useAkademStatsQuery } from '@/hooks';
+import { useAcademStatsQuery } from '@/hooks';
 import { PageLoading } from '@/components';
 
 const AcademicStatCard: React.FC<{ title: string; value: string }> = ({ title, value }) => {
@@ -15,7 +15,7 @@ const AcademicStatCard: React.FC<{ title: string; value: string }> = ({ title, v
 };
 
 const AcademicDashboardPage: React.FC = () => {
-    const { data, isLoading } = useAkademStatsQuery();
+    const { data, isLoading } = useAcademStatsQuery();
 
     if (isLoading) return <PageLoading />;
 
