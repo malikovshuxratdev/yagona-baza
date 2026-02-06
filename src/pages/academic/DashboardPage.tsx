@@ -1,5 +1,7 @@
 import React from 'react';
 import { formatNumber } from '@/helpers';
+import { useAkademStatsQuery } from '@/hooks';
+import { PageLoading } from '@/components';
 
 const AcademicStatCard: React.FC<{ title: string; value: string }> = ({ title, value }) => {
     return (
@@ -13,10 +15,9 @@ const AcademicStatCard: React.FC<{ title: string; value: string }> = ({ title, v
 };
 
 const AcademicDashboardPage: React.FC = () => {
-    const totalCompetitions = 4;
-    const totalApplications = 591;
-    const totalWinnerProjects = 77;
-    const totalAllocatedAmount = 5_445_353_522;
+    const { data, isLoading } = useAkademStatsQuery();
+
+    if (isLoading) return <PageLoading />;
 
     return (
         <div className="mx-auto space-y-6">
@@ -29,19 +30,19 @@ const AcademicDashboardPage: React.FC = () => {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
                 <AcademicStatCard
                     title="O‘tkazilgan tanlovlar"
-                    value={`${formatNumber(totalCompetitions)} ta`}
+                    value={`${formatNumber(data?.contests || 0)} ta`}
                 />
                 <AcademicStatCard
                     title="Kelib tushgan arizalar"
-                    value={`${formatNumber(totalApplications)} ta`}
+                    value={`${formatNumber(data?.applications || 0)} ta`}
                 />
                 <AcademicStatCard
                     title="G‘olib deb topilgan loyihalar"
-                    value={`${formatNumber(totalWinnerProjects)} ta`}
+                    value={`${formatNumber(data?.winner_applications || 0)} ta`}
                 />
                 <AcademicStatCard
                     title="Jami ajratilgan mablag‘"
-                    value={`${formatNumber(totalAllocatedAmount)} so'm`}
+                    value={`${formatNumber(data?.funding_amount || 0)} so'm`}
                 />
             </div>
         </div>

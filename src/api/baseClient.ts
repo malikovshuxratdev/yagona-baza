@@ -14,14 +14,17 @@ import {
     INTERNSHIP_URL,
     INTERNSHIP_BASIC_AUTH_USERNAME,
     INTERNSHIP_BASIC_AUTH_PASSWORD,
+    AKADEM_URL,
 } from '@/constants';
+import { ensureAkademToken, clearAkademToken } from './akademAuth';
 
-export type ApiClientKey = 'scienceId' | 'reestr' | 'internship';
+export type ApiClientKey = 'scienceId' | 'reestr' | 'internship' | 'akadem';
 
 const URL_MAP: Record<ApiClientKey, string> = {
     scienceId: SCIENCEID_URL,
     reestr: REESTR_URL,
     internship: INTERNSHIP_URL,
+    akadem: AKADEM_URL,
 };
 
 declare module 'axios' {
@@ -75,6 +78,12 @@ export class BaseClient {
     }
 
     private attachToken = async (req: InternalAxiosRequestConfig) => {
+        if (this.key === 'akadem') {
+            const token = await ensureAkademToken();
+            req.headers = req.headers || {};
+            req.headers['Authorization'] = `ClientAuth ${token}`;
+            return req;
+        }
         if (this.key === 'internship') return req;
 
         const token = TokenService.getToken();
@@ -88,6 +97,10 @@ export class BaseClient {
     };
 
     private onApiError = async (error: AxiosError) => {
+        if (this.key === 'akadem' && error.response?.status === 401) {
+            clearAkademToken();
+            return Promise.reject(error);
+        }
         if (this.key === 'internship') return Promise.reject(error);
         if (error.response?.status === 401) {
             TokenService.clearTokens();
@@ -143,3 +156,4 @@ export class BaseClient {
 export const scienceIdApiClient = BaseClient.getInstance('scienceId');
 export const reestrApiClient = BaseClient.getInstance('reestr');
 export const internshipApiClient = BaseClient.getInstance('internship');
+export const akademApiClient = BaseClient.getInstance('akadem');

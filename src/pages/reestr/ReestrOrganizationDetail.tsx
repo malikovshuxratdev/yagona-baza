@@ -7,8 +7,8 @@ import { getReestrLabelUz } from '@/constants';
 import { fullDateFormat } from '@/helpers';
 import type {
     ReestrOrganizationDetailResponse,
-    Director,
-    Founder,
+    ReestrDirector,
+    ReestrFounder,
     BillingAddress,
 } from '@/types';
 
@@ -113,11 +113,11 @@ const ReestrOrganizationDetail: React.FC = () => {
                     <div className="divide-y divide-gray-100">
                         <DetailRow
                             label="F.I.O."
-                            value={(d.director as Director).fullname}
+                            value={(d.director as ReestrDirector).fullname}
                             className="bg-gray-50/30"
                         />
-                        <DetailRow label="Telefon" value={(d.director as Director).phone} />
-                        <DetailRow label="Email" value={(d.director as Director).email} className="bg-gray-50/30" />
+                        <DetailRow label="Telefon" value={(d.director as ReestrDirector).phone} />
+                        <DetailRow label="Email" value={(d.director as ReestrDirector).email} className="bg-gray-50/30" />
                     </div>
                 </div>
             )}
@@ -148,7 +148,7 @@ const ReestrOrganizationDetail: React.FC = () => {
                         <SectionTitle title="Asoschilar" />
                     </div>
                     <div className="divide-y divide-gray-100">
-                        {d.founders.map((f: Founder, idx: number) => (
+                        {d.founders.map((f: ReestrFounder, idx: number) => (
                             <div
                                 key={`${f.tin}-${idx}`}
                                 className={`space-y-0 ${idx % 2 === 0 ? 'bg-gray-50/30' : ''}`}

@@ -16,7 +16,7 @@ export interface ReestrPassportTemplateStatisticsItem {
 
 export interface ReestrRegionStatisticsResponse {
     region_soato: string
-    region_name: NameType
+    region_name: ReestrNameType
     items: ReestrOrgClassStatisticsItem[]
 }
 
@@ -43,12 +43,12 @@ export interface ReestrOrganizationListItem {
 export interface ReestrOrganizationDetailResponse {
     id: number
     address: string
-    director: Director
+    director: ReestrDirector
     social: Social
     admin: any
     classification_leaf: any
     billing_address: BillingAddress
-    founders: Founder[]
+    founders: ReestrFounder[]
     bank: any[]
     classification_lineage: any[]
     opf: Opf
@@ -84,7 +84,7 @@ export interface ReestrOrganizationDetailResponse {
     soogu_fk: number
 }
 
-export interface Director {
+export interface ReestrDirector {
     id: number
     fullname: string
     science_id: any
@@ -129,26 +129,26 @@ export interface BillingAddress {
 
 export interface District {
     id: number
-    region: Region
+    region: ReestrRegion
     created_at: string
     updated_at: string
-    name: NameType
+    name: ReestrNameType
     soato: string
 }
 
-export interface Region {
+export interface ReestrRegion {
     id: number
-    name: NameType
+    name: ReestrNameType
     soato: string
 }
 
-export interface NameType {
+export interface ReestrNameType {
     oz: string
     ru: string
     uz: string
 }
 
-export interface Founder {
+export interface ReestrFounder {
     name: string
     tin: string
     share_sum: number
