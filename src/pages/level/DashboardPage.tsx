@@ -1,5 +1,5 @@
 import React from 'react';
-import { LevelStatisticsComponent } from './components';
+import { LevelStatisticsComponent, LevelRegionGrid } from './components';
 
 const LevelDashboardPage: React.FC = () => {
     return (
@@ -10,6 +10,7 @@ const LevelDashboardPage: React.FC = () => {
                 </h2>
             </div>
             <LevelStatisticsComponent />
+            <LevelRegionGrid />
         </div>
     );
 };
