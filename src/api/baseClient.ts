@@ -16,10 +16,11 @@ import {
     INTERNSHIP_BASIC_AUTH_PASSWORD,
     ACADEM_URL,
     LEVEL_URL,
+    LEVEL_MONITORING_URL
 } from '@/constants';
 import { ensureAcademToken, clearAcademToken } from './akademAuth';
 
-export type ApiClientKey = 'scienceId' | 'reestr' | 'internship' | 'academ' | 'level';
+export type ApiClientKey = 'scienceId' | 'reestr' | 'internship' | 'academ' | 'level' | 'levelMonitoring';
 
 const URL_MAP: Record<ApiClientKey, string> = {
     scienceId: SCIENCEID_URL,
@@ -27,6 +28,7 @@ const URL_MAP: Record<ApiClientKey, string> = {
     internship: INTERNSHIP_URL,
     academ: ACADEM_URL,
     level: LEVEL_URL,
+    levelMonitoring: LEVEL_MONITORING_URL,
 };
 
 declare module 'axios' {
@@ -160,3 +162,4 @@ export const reestrApiClient = BaseClient.getInstance('reestr');
 export const internshipApiClient = BaseClient.getInstance('internship');
 export const academApiClient = BaseClient.getInstance('academ');
 export const levelApiClient = BaseClient.getInstance('level');
+export const levelMonitoringApiClient = BaseClient.getInstance('levelMonitoring');

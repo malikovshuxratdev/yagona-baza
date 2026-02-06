@@ -7,6 +7,7 @@ export const REESTR_URL = import.meta.env.VITE_REESTR_URL;
 export const INTERNSHIP_URL = import.meta.env.VITE_INTERNSHIP_URL;
 export const ACADEM_URL = import.meta.env.VITE_AKADEM_URL;
 export const LEVEL_URL = import.meta.env.VITE_LEVEL_URL;
+export const LEVEL_MONITORING_URL = import.meta.env.VITE_LEVEL_MONITORING_URL;
 export const FILE_URL = "";
 
 /** Internship API Basic Auth (env orqali) */

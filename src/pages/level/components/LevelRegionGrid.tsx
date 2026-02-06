@@ -3,6 +3,7 @@ import { MapContainer, PageLoading } from '@/components';
 import { useLevelRegionStatisticsQuery } from '@/hooks';
 import { REGION_NAMES_UZ } from '@/constants/regionSoato';
 import type { LevelRegionStatisticsItem } from '@/types';
+import { REGION_CODE_TO_LEVEL_API_ID } from '@/types';
 import { formatNumber } from '@/helpers';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
@@ -13,42 +14,52 @@ const StatCard: React.FC<{ title: string; value: string }> = ({ title, value }) 
     </div>
 );
 
+const EMPTY_REGION_DATA = (regionId: number, regionName: string): LevelRegionStatisticsItem => ({
+    region_id: regionId,
+    region_name: regionName,
+    doktarantura_tashkilotlar_jami: 0,
+    otm: 0,
+    itm: 0,
+    boshqa: 0,
+    doktaranturalar_soni: 0,
+});
+
 const LevelRegionGrid: React.FC = () => {
     const [selectedRegion, setSelectedRegion] = useState<string>('TN');
     const { data: apiData, isLoading } = useLevelRegionStatisticsQuery();
 
-    const regionByName = useMemo(() => {
-        const map = new Map<string, LevelRegionStatisticsItem>();
-        if (Array.isArray(apiData)) {
-            apiData.forEach((row) => map.set(row.region_code, row));
+    const regionById = useMemo(() => {
+        const map = new Map<number, LevelRegionStatisticsItem>();
+        const stats = apiData?.stats;
+        if (Array.isArray(stats)) {
+            stats.forEach((row) => map.set(row.region_id, row));
         }
         return map;
     }, [apiData]);
 
     const selectedRegionData = useMemo(() => {
-        const item = regionByName.get(selectedRegion);
+        const regionId = REGION_CODE_TO_LEVEL_API_ID[selectedRegion];
         const name = REGION_NAMES_UZ[selectedRegion as keyof typeof REGION_NAMES_UZ] ?? selectedRegion;
+        if (regionId === undefined) {
+            return EMPTY_REGION_DATA(0, name);
+        }
+        const item = regionById.get(regionId);
         if (item) return item;
-        return {
-            region_code: selectedRegion,
-            region_name: name,
-            total: 0,
-            otm: 0,
-            itm: 0,
-            others: 0,
-            researchers: 0,
-        };
-    }, [selectedRegion, regionByName]);
+        return EMPTY_REGION_DATA(regionId, name);
+    }, [selectedRegion, regionById]);
 
     const regionStats = useMemo(
         () => [
-            { label: 'Jami', value: formatNumber(selectedRegionData.total) },
+            {
+                label: 'Doktarantura tashkilotlar jami',
+                value: formatNumber(selectedRegionData.doktarantura_tashkilotlar_jami),
+            },
             { label: 'OTM', value: formatNumber(selectedRegionData.otm) },
             { label: 'ITM', value: formatNumber(selectedRegionData.itm) },
-            { label: 'Boshqalari', value: formatNumber(selectedRegionData.others) },
+            { label: 'Boshqalari', value: formatNumber(selectedRegionData.boshqa) },
             {
-                label: 'Ilmiy izlanuvchilar',
-                value: formatNumber(selectedRegionData.researchers),
+                label: 'Doktaranturalar soni',
+                value: formatNumber(selectedRegionData.doktaranturalar_soni),
             },
         ],
         [selectedRegionData]
