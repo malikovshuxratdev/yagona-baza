@@ -25,6 +25,10 @@ export const INTERNSHIP_APPLICATION_VIEW = '/internship/applications/view/:id';
 export const ACADEMIC_ADMIN = '/academic';
 export const ACADEMIC_DASHBOARD = '/academic/dashboard';
 
+// daraja section
+export const DARAJAA_ADMIN = '/daraja';
+export const DARAJAA_DASHBOARD = '/daraja/dashboard';
+
 const paths = {
     PAGE_NOT_FOUND,
     HOME,
@@ -42,6 +46,8 @@ const paths = {
     INTERNSHIP_APPLICATION_VIEW,
     ACADEMIC_ADMIN,
     ACADEMIC_DASHBOARD,
+    DARAJAA_ADMIN,
+    DARAJAA_DASHBOARD,
 };
 
 export default paths;

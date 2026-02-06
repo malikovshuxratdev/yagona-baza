@@ -27,6 +27,9 @@ const InternshipApplicationDetail = lazy(() => import('@/pages/internship/Intern
 // Academic mobility pages
 const AcademicDashboardPage = lazy(() => import('@/pages/academic/DashboardPage'));
 
+// Daraja pages
+const DarajaDashboardPage = lazy(() => import('@/pages/daraja/DashboardPage'));
+
 const NotFoundPage = lazy(() => import('@/pages/not-found/NotFoundPage'));
 
 const Router: RouteObject[] = [
@@ -154,6 +157,26 @@ const Router: RouteObject[] = [
             {
                 path: paths.ACADEMIC_DASHBOARD,
                 element: <AcademicDashboardPage />,
+                errorElement: <RouterErrorBoundary />,
+            },
+        ],
+    },
+    {
+        path: paths.DARAJAA_ADMIN,
+        element: (
+            <Suspense fallback={<PageLoading />}>
+                <AdminLayout />
+            </Suspense>
+        ),
+        errorElement: <RouterErrorBoundary />,
+        children: [
+            {
+                index: true,
+                element: <Navigate to={paths.DARAJAA_DASHBOARD} replace />,
+            },
+            {
+                path: paths.DARAJAA_DASHBOARD,
+                element: <DarajaDashboardPage />,
                 errorElement: <RouterErrorBoundary />,
             },
         ],

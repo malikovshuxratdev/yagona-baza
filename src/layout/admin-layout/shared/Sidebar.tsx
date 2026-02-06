@@ -3,7 +3,10 @@ import {
     Users,
     BarChart,
     Building2,
+    BookOpen,
     Briefcase,
+    Award,
+    Layers,
 } from 'lucide-react';
 import { LogoutOutlined } from '@ant-design/icons';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
@@ -29,6 +32,7 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
         paths.REESTR_ADMIN,
         paths.INTERNSHIP_ADMIN,
         paths.ACADEMIC_ADMIN,
+        paths.DARAJAA_ADMIN,
     ]);
     const handleLogout = useCallback(() => {
         logout();
@@ -39,21 +43,20 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
     const isReestrActive = location.pathname.startsWith(paths.REESTR_ADMIN);
     const isInternshipActive = location.pathname.startsWith(paths.INTERNSHIP_ADMIN);
     const isAcademicActive = location.pathname.startsWith(paths.ACADEMIC_ADMIN);
+    const isDarajaActive = location.pathname.startsWith(paths.DARAJAA_ADMIN);
 
     const menuItems: MenuProps['items'] = useMemo(
         () =>
             [
                 {
                     key: paths.ADMIN,
+                    icon: <BookOpen size={18} className="shrink-0" />,
                     label: (
-                        <div
-                            className={`text-base font-semibold transition-colors rounded-lg px-2 py-1 -mx-2 ${isAdminActive
-                                ? 'text-blue-light '
-                                : 'text-gray-light-10'
-                                }`}
+                        <span
+                            className={`text-base font-semibold transition-colors ${isAdminActive ? 'text-blue-light' : 'text-gray-light-10'}`}
                         >
                             Science Id
-                        </div>
+                        </span>
                     ),
                     children: [
                         {
@@ -84,15 +87,13 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
                 },
                 {
                     key: paths.REESTR_ADMIN,
+                    icon: <Building2 size={18} className="shrink-0" />,
                     label: (
-                        <div
-                            className={`text-base font-semibold transition-colors rounded-lg px-2 py-1 -mx-2 ${isReestrActive
-                                ? 'text-blue-light'
-                                : 'text-gray-light-10'
-                                }`}
+                        <span
+                            className={`text-base font-semibold transition-colors ${isReestrActive ? 'text-blue-light' : 'text-gray-light-10'}`}
                         >
                             Reestr
-                        </div>
+                        </span>
                     ),
                     children: [
                         {
@@ -123,15 +124,13 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
                 },
                 {
                     key: paths.INTERNSHIP_ADMIN,
+                    icon: <Briefcase size={18} className="shrink-0" />,
                     label: (
-                        <div
-                            className={`text-base font-semibold transition-colors rounded-lg px-2 py-1 -mx-2 ${isInternshipActive
-                                ? 'text-blue-light'
-                                : 'text-gray-light-10'
-                                }`}
+                        <span
+                            className={`text-base font-semibold transition-colors ${isInternshipActive ? 'text-blue-light' : 'text-gray-light-10'}`}
                         >
                             Internship
-                        </div>
+                        </span>
                     ),
                     children: [
                         {
@@ -162,18 +161,18 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
                 },
                 {
                     key: paths.ACADEMIC_ADMIN,
+                    icon: <Award size={18} className="shrink-0" />,
                     label: (
-                        <div
-                            className={`text-base font-semibold transition-colors rounded-lg px-2 py-1 -mx-2 ${isAcademicActive ? 'text-blue-light' : 'text-gray-light-10'
-                                }`}
+                        <span
+                            className={`text-base font-semibold transition-colors ${isAcademicActive ? 'text-blue-light' : 'text-gray-light-10'}`}
                         >
                             Akadem
-                        </div>
+                        </span>
                     ),
                     children: [
                         {
                             key: paths.ACADEMIC_DASHBOARD,
-                            icon: <Briefcase size={18} />,
+                            icon: <BarChart size={18} />,
                             label: (
                                 <Link
                                     to={paths.ACADEMIC_DASHBOARD}
@@ -185,8 +184,33 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
                         },
                     ],
                 },
+                {
+                    key: paths.DARAJAA_ADMIN,
+                    icon: <Layers size={18} className="shrink-0" />,
+                    label: (
+                        <span
+                            className={`text-base font-semibold transition-colors ${isDarajaActive ? 'text-blue-light' : 'text-gray-light-10'}`}
+                        >
+                            Daraja
+                        </span>
+                    ),
+                    children: [
+                        {
+                            key: paths.DARAJAA_DASHBOARD,
+                            icon: <BarChart size={18} />,
+                            label: (
+                                <Link
+                                    to={paths.DARAJAA_DASHBOARD}
+                                    className="text-gray-light-10 text-[15px] font-medium"
+                                >
+                                    Dashboard
+                                </Link>
+                            ),
+                        },
+                    ],
+                },
             ].filter(Boolean) as MenuProps['items'],
-        [isAdminActive, isReestrActive, isInternshipActive, isAcademicActive]
+        [isAdminActive, isReestrActive, isInternshipActive, isAcademicActive, isDarajaActive]
     );
 
     return (
@@ -223,11 +247,12 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
                 <div className="flex-1 overflow-y-auto py-4">
                     <Menu
                         mode="inline"
+                        inlineCollapsed={collapsed}
                         selectedKeys={[location.pathname]}
                         openKeys={openKeys}
                         onOpenChange={setOpenKeys}
                         items={menuItems}
-                        className="border-0"
+                        className="border-0 [&_.ant-menu-item]:flex [&_.ant-menu-item]:items-center [&_.ant-menu-submenu-title]:flex [&_.ant-menu-submenu-title]:items-center"
                         style={{
                             backgroundColor: 'transparent',
                             fontSize: '15px',
