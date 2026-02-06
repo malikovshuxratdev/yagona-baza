@@ -24,6 +24,7 @@ export const INTERNSHIP_APPLICATION_VIEW = '/internship/applications/view/:id';
 // academic mobility section
 export const ACADEMIC_ADMIN = '/academic';
 export const ACADEMIC_DASHBOARD = '/academic/dashboard';
+export const ACADEMIC_WINNER_PROJECTS = '/academic/winner-projects';
 
 // level (daraja) section
 export const LEVEL_ADMIN = '/level';
@@ -46,6 +47,7 @@ const paths = {
     INTERNSHIP_APPLICATION_VIEW,
     ACADEMIC_ADMIN,
     ACADEMIC_DASHBOARD,
+    ACADEMIC_WINNER_PROJECTS,
     LEVEL_ADMIN,
     LEVEL_DASHBOARD,
 };

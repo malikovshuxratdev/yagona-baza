@@ -182,6 +182,18 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
                                 </Link>
                             ),
                         },
+                        {
+                            key: paths.ACADEMIC_WINNER_PROJECTS,
+                            icon: <Award size={18} />,
+                            label: (
+                                <Link
+                                    to={paths.ACADEMIC_WINNER_PROJECTS}
+                                    className="text-gray-light-10 text-[15px] font-medium"
+                                >
+                                    G'olib loyihalar
+                                </Link>
+                            ),
+                        },
                     ],
                 },
                 {

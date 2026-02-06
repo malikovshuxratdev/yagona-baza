@@ -2,6 +2,9 @@ import React from 'react';
 import { formatNumber } from '@/helpers';
 import { useAcademStatsQuery } from '@/hooks';
 import { PageLoading } from '@/components';
+import { Link } from 'react-router-dom';
+import { paths } from '@/routes';
+import { Award } from 'lucide-react';
 
 const AcademicStatCard: React.FC<{ title: string; value: string }> = ({ title, value }) => {
     return (
@@ -45,6 +48,14 @@ const AcademicDashboardPage: React.FC = () => {
                     value={`${formatNumber(data?.funding_amount || 0)} so'm`}
                 />
             </div>
+
+            <Link
+                to={paths.ACADEMIC_WINNER_PROJECTS}
+                className="inline-flex items-center gap-2 rounded-xl border border-gray-200 bg-white px-5 py-3 text-gray-700 shadow-sm transition-colors hover:bg-gray-50 hover:border-gray-300"
+            >
+                <Award className="h-5 w-5" />
+                <span className="font-medium">G'olib loyihalar</span>
+            </Link>
         </div>
     );
 };

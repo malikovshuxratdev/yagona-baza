@@ -16,9 +16,11 @@ export class AcademApi {
         return result.data;
     };
 
-    getAcademWinners = async () => {
+    getAcademWinners = async (page = 1, pageSize = 10) => {
         const result: AxiosResponse<AkademWinnersResponse> =
-            await this.api.get(urls.getAcademWinners);
+            await this.api.get(urls.getAcademWinners, {
+                params: { page, page_size: pageSize },
+            });
         return result.data;
     };
 }
