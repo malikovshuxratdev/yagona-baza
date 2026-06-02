@@ -135,19 +135,7 @@ export class BaseClient {
             const token = await ensureAcademToken();
             req.headers = req.headers || {};
             req.headers['Authorization'] = `ClientAuth ${token}`;
-            return req;
         }
-        if (this.key === 'internship') return req;
-        if (this.key === 'scienceId' && SCIENCEID_BASIC_AUTH_USERNAME) return req;
-        if (this.key === 'project' && PROJECT_BASIC_AUTH_USERNAME) return req;
-
-        const token = TokenService.getToken();
-
-        if (token && !req.headers['Authorization']) {
-            req.headers = req.headers || {};
-            req.headers['Authorization'] = `Bearer ${token}`;
-        }
-
         return req;
     };
 
@@ -163,11 +151,6 @@ export class BaseClient {
                 return this.axios(config);
             }
             return Promise.reject(error);
-        }
-        if (this.key === 'internship') return Promise.reject(error);
-        if (error.response?.status === 401) {
-            TokenService.clearTokens();
-            window.location.href = paths.HOME;
         }
         return Promise.reject(error);
     };
