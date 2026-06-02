@@ -5,3 +5,4 @@ export * from './useReestrStats';
 export * from './useInternshipStats';
 export * from './useAcademStats';
 export * from './useLevelStats';
+export * from './useProjectStats';

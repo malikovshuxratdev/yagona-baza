@@ -16,11 +16,23 @@ import {
     INTERNSHIP_BASIC_AUTH_PASSWORD,
     ACADEM_URL,
     LEVEL_URL,
-    LEVEL_MONITORING_URL
+    LEVEL_MONITORING_URL,
+    PROJECT_URL,
+    ARXIV_URL,
+    PROJECT_BASIC_AUTH_USERNAME,
+    PROJECT_BASIC_AUTH_PASSWORD,
 } from '@/constants';
 import { ensureAcademToken, clearAcademToken } from './akademAuth';
 
-export type ApiClientKey = 'scienceId' | 'reestr' | 'internship' | 'academ' | 'level' | 'levelMonitoring';
+export type ApiClientKey =
+    | 'scienceId'
+    | 'reestr'
+    | 'internship'
+    | 'academ'
+    | 'level'
+    | 'levelMonitoring'
+    | 'project'
+    | 'arxiv';
 
 const URL_MAP: Record<ApiClientKey, string> = {
     scienceId: SCIENCEID_URL,
@@ -29,11 +41,14 @@ const URL_MAP: Record<ApiClientKey, string> = {
     academ: ACADEM_URL,
     level: LEVEL_URL,
     levelMonitoring: LEVEL_MONITORING_URL,
+    project: PROJECT_URL,
+    arxiv: ARXIV_URL,
 };
 
 declare module 'axios' {
     export interface AxiosRequestConfig {
         unhandled?: boolean;
+        _retried?: boolean;
     }
 }
 
@@ -63,6 +78,13 @@ export class BaseClient {
             };
         }
 
+        if (key === 'project' && PROJECT_BASIC_AUTH_USERNAME && PROJECT_BASIC_AUTH_PASSWORD) {
+            this.axios.defaults.auth = {
+                username: PROJECT_BASIC_AUTH_USERNAME,
+                password: PROJECT_BASIC_AUTH_PASSWORD,
+            };
+        }
+
         this.axios.interceptors.request.use(this.attachToken);
         this.axios.interceptors.response.use(
             (response: AxiosResponse) => response,
@@ -88,7 +110,7 @@ export class BaseClient {
             req.headers['Authorization'] = `ClientAuth ${token}`;
             return req;
         }
-        if (this.key === 'internship') return req;
+        if (this.key === 'internship' || this.key === 'project') return req;
 
         const token = TokenService.getToken();
 
@@ -103,9 +125,17 @@ export class BaseClient {
     private onApiError = async (error: AxiosError) => {
         if (this.key === 'academ' && error.response?.status === 401) {
             clearAcademToken();
+            const config = error.config;
+            if (config && !config._retried) {
+                config._retried = true;
+                const token = await ensureAcademToken();
+                config.headers = config.headers || {};
+                config.headers['Authorization'] = `ClientAuth ${token}`;
+                return this.axios(config);
+            }
             return Promise.reject(error);
         }
-        if (this.key === 'internship') return Promise.reject(error);
+        if (this.key === 'internship' || this.key === 'project') return Promise.reject(error);
         if (error.response?.status === 401) {
             TokenService.clearTokens();
             window.location.href = paths.HOME;
@@ -119,17 +149,17 @@ export class BaseClient {
         return newToken;
     };
 
-    get = async <T, K, C>(
+    get = async <T, K>(
         url: string,
         params?: K,
-        config?: AxiosRequestConfig<C>
+        config?: AxiosRequestConfig
     ): Promise<AxiosResponse<T>> => {
         const queryParams = params ? buildParams(params) : '';
         return this.axios.get(url + queryParams, config);
     };
 
-    delete = async <T, K>(url: string, data?: K): Promise<AxiosResponse<T>> => {
-        return this.axios.delete(url, { params: data });
+    delete = async <T, K>(url: string, params?: K): Promise<AxiosResponse<T>> => {
+        return this.axios.delete(url, { params });
     };
 
     post = async <T, K>(
@@ -163,3 +193,5 @@ export const internshipApiClient = BaseClient.getInstance('internship');
 export const academApiClient = BaseClient.getInstance('academ');
 export const levelApiClient = BaseClient.getInstance('level');
 export const levelMonitoringApiClient = BaseClient.getInstance('levelMonitoring');
+export const projectApiClient = BaseClient.getInstance('project');
+export const arxivApiClient = BaseClient.getInstance('arxiv');

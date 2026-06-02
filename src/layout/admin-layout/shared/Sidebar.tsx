@@ -7,6 +7,8 @@ import {
     Briefcase,
     Award,
     Layers,
+    FolderOpen,
+    Archive,
 } from 'lucide-react';
 import { LogoutOutlined } from '@ant-design/icons';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
@@ -33,6 +35,8 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
         paths.INTERNSHIP_ADMIN,
         paths.ACADEMIC_ADMIN,
         paths.LEVEL_ADMIN,
+        paths.PROJECT_ADMIN,
+        paths.ARXIV_ADMIN,
     ]);
     const handleLogout = useCallback(() => {
         logout();
@@ -44,6 +48,8 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
     const isInternshipActive = location.pathname.startsWith(paths.INTERNSHIP_ADMIN);
     const isAcademicActive = location.pathname.startsWith(paths.ACADEMIC_ADMIN);
     const isLevelActive = location.pathname.startsWith(paths.LEVEL_ADMIN);
+    const isProjectActive = location.pathname.startsWith(paths.PROJECT_ADMIN);
+    const isArxivActive = location.pathname.startsWith(paths.ARXIV_ADMIN);
 
     const menuItems: MenuProps['items'] = useMemo(
         () =>
@@ -209,8 +215,58 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
                         },
                     ],
                 },
+                {
+                    key: paths.PROJECT_ADMIN,
+                    icon: <FolderOpen size={18} className="shrink-0" />,
+                    label: (
+                        <span
+                            className={`text-base font-semibold transition-colors ${isProjectActive ? 'text-blue-light' : 'text-gray-light-10'}`}
+                        >
+                            loyiha.ilmiy.uz
+                        </span>
+                    ),
+                    children: [
+                        {
+                            key: paths.PROJECT_DASHBOARD,
+                            icon: <BarChart size={18} />,
+                            label: (
+                                <Link
+                                    to={paths.PROJECT_DASHBOARD}
+                                    className="text-gray-light-10 text-[15px] font-medium"
+                                >
+                                    Dashboard
+                                </Link>
+                            ),
+                        },
+                    ],
+                },
+                {
+                    key: paths.ARXIV_ADMIN,
+                    icon: <Archive size={18} className="shrink-0" />,
+                    label: (
+                        <span
+                            className={`text-base font-semibold transition-colors ${isArxivActive ? 'text-blue-light' : 'text-gray-light-10'}`}
+                        >
+                            arxiv.ilmiy.uz
+                        </span>
+                    ),
+                    children: [
+                        {
+                            key: paths.ARXIV_DASHBOARD,
+                            icon: <BarChart size={18} />,
+                            label: (
+                                <Link
+                                    to={paths.ARXIV_DASHBOARD}
+                                    className="text-gray-light-10 text-[15px] font-medium"
+                                >
+                                    Dashboard
+                                </Link>
+                            ),
+                        },
+                    ],
+                },
             ].filter(Boolean) as MenuProps['items'],
-        [isAdminActive, isReestrActive, isInternshipActive, isAcademicActive, isLevelActive]
+        [isAdminActive, isReestrActive, isInternshipActive, isAcademicActive, isLevelActive, isProjectActive, isArxivActive]
     );
 
     return (

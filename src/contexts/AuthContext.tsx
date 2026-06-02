@@ -3,7 +3,9 @@ import { TokenService } from '@/utils/storage';
 
 function getInitialLoggedIn(): boolean {
     if (typeof window === 'undefined') return false;
-    return !!TokenService.getAccessKey();
+    const valid = TokenService.isAccessKeyValid();
+    if (!valid) TokenService.clearAccessKey();
+    return valid;
 }
 
 interface AuthContextValue {

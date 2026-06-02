@@ -26,17 +26,17 @@ const InternshipApplicationsDonutChart: React.FC<InternshipApplicationsDonutChar
     const hasData = chartData.length > 0;
 
     return (
-        <div className="w-full border border-gray-200 rounded-lg p-4 bg-white">
+        <div className="w-full border border-gray-200 rounded-2xl p-4 sm:p-6 bg-white shadow-sm">
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6">
-                <div className="w-full sm:w-4/5 flex justify-center min-h-[280px] sm:min-h-[350px]">
-                    <ResponsiveContainer width="100%" height={350}>
+                <div className="w-full sm:w-4/5 flex justify-center">
+                    <ResponsiveContainer width="100%" height={280}>
                         <PieChart>
                             <Pie
                                 data={hasData ? chartData : [{ name: '—', value: 1, color: '#e5e7eb' }]}
                                 cx="50%"
                                 cy="50%"
-                                innerRadius={60}
-                                outerRadius={120}
+                                innerRadius={55}
+                                outerRadius={100}
                                 paddingAngle={3}
                                 dataKey="value"
                             >
@@ -45,7 +45,7 @@ const InternshipApplicationsDonutChart: React.FC<InternshipApplicationsDonutChar
                                 ))}
                             </Pie>
                             <Tooltip
-                                formatter={(value?: number, name?: string) => [value ?? 0, name ?? '']}
+                                formatter={(value: number, name?: string) => [value.toLocaleString(), name ?? '']}
                                 contentStyle={{ fontSize: '14px' }}
                             />
                             <text
@@ -60,7 +60,7 @@ const InternshipApplicationsDonutChart: React.FC<InternshipApplicationsDonutChar
                                     {totalLabel}
                                 </tspan>
                                 <tspan x="50%" dy="25" fontSize="20" fontWeight="bold">
-                                    {totalValue}
+                                    {totalValue.toLocaleString()}
                                 </tspan>
                             </text>
                         </PieChart>
@@ -74,8 +74,8 @@ const InternshipApplicationsDonutChart: React.FC<InternshipApplicationsDonutChar
                                 style={{ backgroundColor: item.color }}
                             />
                             <span className="text-gray-600 text-sm truncate">{item.name}</span>
-                            <span className="text-gray-900 font-medium text-sm shrink-0 ml-auto sm:ml-1">
-                                {item.value}
+                            <span className="text-gray-900 font-medium text-sm shrink-0 ml-auto">
+                                {item.value.toLocaleString()}
                             </span>
                         </div>
                     ))}

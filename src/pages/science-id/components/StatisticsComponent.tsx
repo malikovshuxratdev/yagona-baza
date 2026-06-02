@@ -5,8 +5,8 @@ import { PageLoading } from '@/components';
 
 const StatCard: React.FC<{ title: string; value: string }> = ({ title, value }) => {
     return (
-        <div className="border border-gray-200 rounded-lg p-4 sm:p-6 flex flex-col">
-            <h3 className="text-gray-600 text-xs sm:text-sm mb-2 sm:mb-4">
+        <div className="border border-gray-200 rounded-2xl p-4 sm:p-6 bg-white shadow-sm flex flex-col">
+            <h3 className="text-gray-500 text-xs sm:text-sm mb-2">
                 {title}
             </h3>
             <p className="text-gray-900 text-xl sm:text-2xl font-bold">
@@ -41,6 +41,9 @@ const StatisticsComponent: React.FC = () => {
             color: '#3B82F6',
         },
     ];
+
+    const filteredChartData = chartData.filter((s) => s.value && s.value > 0);
+    const hasData = filteredChartData.length > 0;
 
     const stats = [
         {
@@ -86,22 +89,22 @@ const StatisticsComponent: React.FC = () => {
                             ))}
                         </div>
                     </div>
-                    <div className="w-full lg:w-1/2 border rounded-lg p-4 mt-6 lg:mt-0">
+                    <div className="w-full lg:w-1/2 border border-gray-200 rounded-2xl p-4 sm:p-6 bg-white shadow-sm mt-6 lg:mt-0">
                         <div className="flex flex-col sm:flex-row items-center justify-center">
                             <div className="w-full sm:w-4/5 flex justify-center">
-                                <ResponsiveContainer width={350} height={350}>
+                                <ResponsiveContainer width="100%" height={280}>
                                     <PieChart>
                                         <Pie
-                                            data={chartData}
+                                            data={hasData ? filteredChartData : [{ name: '—', value: 1, color: '#e5e7eb' }]}
                                             cx="50%"
                                             cy="50%"
-                                            innerRadius={60}
-                                            outerRadius={120}
+                                            innerRadius={55}
+                                            outerRadius={100}
                                             fill="#8884d8"
                                             paddingAngle={3}
                                             dataKey="value"
                                         >
-                                            {chartData.map((entry, index) => (
+                                            {(hasData ? filteredChartData : [{ color: '#e5e7eb' }]).map((entry, index) => (
                                                 <Cell
                                                     key={`cell-${index}`}
                                                     fill={entry.color}
@@ -126,8 +129,7 @@ const StatisticsComponent: React.FC = () => {
                                                 fontSize="20"
                                                 fontWeight="bold"
                                             >
-                                                {data?.overall.users_count ||
-                                                    '0'}
+                                                {data?.overall.users_count || '0'}
                                             </tspan>
                                         </text>
                                     </PieChart>
@@ -137,16 +139,17 @@ const StatisticsComponent: React.FC = () => {
                                 {chartData.map((item, index) => (
                                     <div
                                         key={index}
-                                        className="flex items-center"
+                                        className="flex items-center gap-2"
                                     >
                                         <div
-                                            className="w-3 h-3 rounded-full mr-1"
-                                            style={{
-                                                backgroundColor: item.color,
-                                            }}
-                                        ></div>
-                                        <span className="text-gray-600">
+                                            className="w-3 h-3 rounded-full shrink-0"
+                                            style={{ backgroundColor: item.color }}
+                                        />
+                                        <span className="text-gray-600 text-sm truncate">
                                             {item.name}
+                                        </span>
+                                        <span className="text-gray-900 font-medium text-sm shrink-0 ml-auto">
+                                            {item.value ?? 0}
                                         </span>
                                     </div>
                                 ))}

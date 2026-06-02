@@ -30,6 +30,13 @@ const AcademicWinnerProjectsPage = lazy(() => import('@/pages/academic/WinnerPro
 
 // Daraja pages
 const LevelDashboardPage = lazy(() => import('@/pages/level/DashboardPage'));
+
+// Project pages
+const ProjectDashboardPage = lazy(() => import('@/pages/project/Dashboard'));
+
+// Arxiv pages
+const ArxivDashboardPage = lazy(() => import('@/pages/arxiv/Dashboard'));
+
 const NotFoundPage = lazy(() => import('@/pages/not-found/NotFoundPage'));
 
 const Router: RouteObject[] = [
@@ -182,6 +189,46 @@ const Router: RouteObject[] = [
             {
                 path: paths.LEVEL_DASHBOARD,
                 element: <LevelDashboardPage />,
+                errorElement: <RouterErrorBoundary />,
+            },
+        ],
+    },
+    {
+        path: paths.PROJECT_ADMIN,
+        element: (
+            <Suspense fallback={<PageLoading />}>
+                <AdminLayout />
+            </Suspense>
+        ),
+        errorElement: <RouterErrorBoundary />,
+        children: [
+            {
+                index: true,
+                element: <Navigate to={paths.PROJECT_DASHBOARD} replace />,
+            },
+            {
+                path: paths.PROJECT_DASHBOARD,
+                element: <ProjectDashboardPage />,
+                errorElement: <RouterErrorBoundary />,
+            },
+        ],
+    },
+    {
+        path: paths.ARXIV_ADMIN,
+        element: (
+            <Suspense fallback={<PageLoading />}>
+                <AdminLayout />
+            </Suspense>
+        ),
+        errorElement: <RouterErrorBoundary />,
+        children: [
+            {
+                index: true,
+                element: <Navigate to={paths.ARXIV_DASHBOARD} replace />,
+            },
+            {
+                path: paths.ARXIV_DASHBOARD,
+                element: <ArxivDashboardPage />,
                 errorElement: <RouterErrorBoundary />,
             },
         ],

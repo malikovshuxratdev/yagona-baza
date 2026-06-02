@@ -42,9 +42,9 @@ const StatCard: React.FC<{ title: string; value: string | number }> = ({
     title,
     value,
 }) => (
-    <div className="border border-gray-200 bg-white rounded-lg p-4 sm:p-6 flex items-center justify-between">
-        <h3 className="text-gray-600 text-[14px] sm:text-[16px]">{title}</h3>
-        <p className="text-gray-900 text-[18px] sm:text-[20px] font-medium">
+    <div className="border border-gray-200 bg-white rounded-2xl p-4 sm:p-5 flex items-center justify-between shadow-sm">
+        <h3 className="text-gray-500 text-sm">{title}</h3>
+        <p className="text-gray-900 font-semibold text-base sm:text-lg">
             {value}
         </p>
     </div>

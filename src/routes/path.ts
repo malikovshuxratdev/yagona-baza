@@ -30,6 +30,14 @@ export const ACADEMIC_WINNER_PROJECTS = '/academic/winner-projects';
 export const LEVEL_ADMIN = '/level';
 export const LEVEL_DASHBOARD = '/level/dashboard';
 
+// project (loyiha) section
+export const PROJECT_ADMIN = '/project';
+export const PROJECT_DASHBOARD = '/project/dashboard';
+
+// arxiv section
+export const ARXIV_ADMIN = '/arxiv';
+export const ARXIV_DASHBOARD = '/arxiv/dashboard';
+
 const paths = {
     PAGE_NOT_FOUND,
     HOME,
@@ -50,6 +58,10 @@ const paths = {
     ACADEMIC_WINNER_PROJECTS,
     LEVEL_ADMIN,
     LEVEL_DASHBOARD,
+    PROJECT_ADMIN,
+    PROJECT_DASHBOARD,
+    ARXIV_ADMIN,
+    ARXIV_DASHBOARD,
 };
 
 export default paths;

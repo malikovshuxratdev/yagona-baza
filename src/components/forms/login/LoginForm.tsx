@@ -14,8 +14,16 @@ export interface LoginFormValues {
     password: string;
 }
 
-function getMockAccessToken(login: string): string {
-    const payload = { sub: login, iat: Date.now() };
+const CREDENTIALS = { login: 'admin', password: 'Minin123' };
+const SESSION_HOURS = 8;
+
+function createSessionToken(login: string): string {
+    const now = Date.now();
+    const payload = {
+        sub: login,
+        iat: now,
+        exp: now + SESSION_HOURS * 60 * 60 * 1000,
+    };
     return btoa(unescape(encodeURIComponent(JSON.stringify(payload))));
 }
 
@@ -33,8 +41,8 @@ const LoginForm: React.FC = () => {
     const onSubmit = async (values: LoginFormValues) => {
         const trimmedLogin = values.login.trim();
 
-        if (trimmedLogin === 'admin' && values.password === 'admin123') {
-            const accessKey = getMockAccessToken(trimmedLogin);
+        if (trimmedLogin === CREDENTIALS.login && values.password === CREDENTIALS.password) {
+            const accessKey = createSessionToken(trimmedLogin);
             login(accessKey);
             navigate(paths.DASHBOARD, { replace: true });
             toast.success("Tizimga muvaffaqiyatli kirdingiz");

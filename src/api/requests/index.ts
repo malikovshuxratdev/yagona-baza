@@ -3,3 +3,4 @@ export * from './reestrApi';
 export * from './internshipApi';
 export * from './akademApi';
 export * from './levelApi';
+export * from './projectApi';

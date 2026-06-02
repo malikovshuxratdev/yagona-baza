@@ -1,7 +1,7 @@
 import * as SessionKeys from '@/constants';
 
 export const getFromStorage = (key: string) => {
-    return localStorage.getItem(key) || localStorage.getItem(key);
+    return localStorage.getItem(key);
 };
 
 export class TokenService {
@@ -15,6 +15,17 @@ export class TokenService {
 
     static getRefreshToken() {
         return localStorage.getItem(SessionKeys.REFRESH_TOKEN);
+    }
+
+    static isAccessKeyValid(): boolean {
+        const key = TokenService.getAccessKey();
+        if (!key) return false;
+        try {
+            const payload = JSON.parse(decodeURIComponent(escape(atob(key))));
+            return typeof payload.exp === 'number' && Date.now() < payload.exp;
+        } catch {
+            return false;
+        }
     }
 
     static setToken(accessToken: string, refreshToken: string) {
