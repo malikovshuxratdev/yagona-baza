@@ -247,26 +247,6 @@ const OrganizationDetail: React.FC = () => {
                         </div>
                     </div>
                 </div>
-
-                {/* Quick stats */}
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-4 pt-4 border-t border-gray-100">
-                    <div className="text-center bg-white rounded-lg py-3 border border-gray-100">
-                        <div className="text-xl font-bold text-indigo-600">{totalDoctorate}</div>
-                        <div className="text-xs text-gray-500 mt-0.5">Doktorantlar</div>
-                    </div>
-                    <div className="text-center bg-white rounded-lg py-3 border border-gray-100">
-                        <div className="text-xl font-bold text-emerald-600">{totalLabs}</div>
-                        <div className="text-xs text-gray-500 mt-0.5">Laboratoriyalar</div>
-                    </div>
-                    <div className="text-center bg-white rounded-lg py-3 border border-gray-100">
-                        <div className="text-xl font-bold text-blue-600">{d.founders?.length ?? 0}</div>
-                        <div className="text-xs text-gray-500 mt-0.5">Asoschilar</div>
-                    </div>
-                    <div className="text-center bg-white rounded-lg py-3 border border-gray-100">
-                        <div className="text-xl font-bold text-orange-600">{d.addresses?.length ?? 0}</div>
-                        <div className="text-xs text-gray-500 mt-0.5">Manzillar</div>
-                    </div>
-                </div>
             </div>
 
             {/* Main info */}
@@ -332,7 +312,7 @@ const OrganizationDetail: React.FC = () => {
                                             : 'bg-sky-100 text-sky-800'
                                     }`}
                                 >
-                                    {addr.type === 'billing' ? 'Hisob' : 'Yetkazish'}
+                                    {addr.type === 'billing' ? 'Yuridik manzil' : 'Filial manzili'}
                                 </span>
                                 <div className="flex-1 min-w-0">
                                     <p className="text-sm text-gray-800">{addr.street}</p>
