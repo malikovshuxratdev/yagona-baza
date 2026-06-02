@@ -1,5 +1,11 @@
 import { AxiosResponse } from "axios";
 import { scienceIdApiClient } from "../baseClient";
+import { SCIENCEID_BASIC_AUTH_USERNAME, SCIENCEID_BASIC_AUTH_PASSWORD } from "@/constants";
+
+const scientistsAuth =
+    SCIENCEID_BASIC_AUTH_USERNAME && SCIENCEID_BASIC_AUTH_PASSWORD
+        ? { auth: { username: SCIENCEID_BASIC_AUTH_USERNAME, password: SCIENCEID_BASIC_AUTH_PASSWORD } }
+        : {};
 import {
     ScienceIdStatisticsResponse,
     ScienceIdUserListResponse,
@@ -32,7 +38,8 @@ export class ScienceIdApi {
         const result: AxiosResponse<ScienceIdUserListResponse> =
             await this.api.get(
                 urls.getUserList,
-                params
+                params,
+                scientistsAuth
             );
         return result.data;
     };
@@ -40,7 +47,9 @@ export class ScienceIdApi {
     getUserDetail = async (id: number) => {
         const result: AxiosResponse<ScienceIdUserDetailResponse> =
             await this.api.get(
-                urls.getUserDetail(id)
+                urls.getUserDetail(id),
+                undefined,
+                scientistsAuth
             );
         return result.data;
     };

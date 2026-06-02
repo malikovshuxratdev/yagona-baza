@@ -6,12 +6,8 @@ import Axios, {
     InternalAxiosRequestConfig,
 } from 'axios';
 import { buildParams } from './helpers';
-import { TokenService } from '@/utils/storage';
-import paths from '@/routes/path';
 import {
     SCIENCEID_URL,
-    SCIENCEID_BASIC_AUTH_USERNAME,
-    SCIENCEID_BASIC_AUTH_PASSWORD,
     REESTR_URL,
     INTERNSHIP_URL,
     INTERNSHIP_BASIC_AUTH_USERNAME,
@@ -78,17 +74,6 @@ export class BaseClient {
         this.axios = Axios.create({
             baseURL: this.baseUrl,
         });
-
-        if (
-            key === 'scienceId' &&
-            SCIENCEID_BASIC_AUTH_USERNAME &&
-            SCIENCEID_BASIC_AUTH_PASSWORD
-        ) {
-            this.axios.defaults.auth = {
-                username: SCIENCEID_BASIC_AUTH_USERNAME,
-                password: SCIENCEID_BASIC_AUTH_PASSWORD,
-            };
-        }
 
         if (
             key === 'internship' &&
