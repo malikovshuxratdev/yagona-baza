@@ -30,9 +30,6 @@ const ProjectDashboardPage: React.FC = () => {
                 <h2 className="text-lg sm:text-xl md:text-2xl font-medium text-gray-900">
                     loyiha.ilmiy.uz statistikasi
                 </h2>
-                <p className="text-gray-500 text-sm mt-1">
-                    old-loyiha.ilmiy.uz API dan olingan ma'lumotlar
-                </p>
             </div>
 
             {data.role && <ProjectRolesChart roles={data.role} />}

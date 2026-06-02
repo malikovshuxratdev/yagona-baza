@@ -37,6 +37,10 @@ const ProjectDashboardPage = lazy(() => import('@/pages/project/Dashboard'));
 // Arxiv pages
 const ArxivDashboardPage = lazy(() => import('@/pages/arxiv/Dashboard'));
 
+// Organization pages
+const OrganizationsPage = lazy(() => import('@/pages/organization/OrganizationsPage'));
+const OrganizationDetail = lazy(() => import('@/pages/organization/OrganizationDetail'));
+
 const NotFoundPage = lazy(() => import('@/pages/not-found/NotFoundPage'));
 
 const Router: RouteObject[] = [
@@ -229,6 +233,31 @@ const Router: RouteObject[] = [
             {
                 path: paths.ARXIV_DASHBOARD,
                 element: <ArxivDashboardPage />,
+                errorElement: <RouterErrorBoundary />,
+            },
+        ],
+    },
+    {
+        path: paths.ORG_ADMIN,
+        element: (
+            <Suspense fallback={<PageLoading />}>
+                <AdminLayout />
+            </Suspense>
+        ),
+        errorElement: <RouterErrorBoundary />,
+        children: [
+            {
+                index: true,
+                element: <Navigate to={paths.ORG_LIST} replace />,
+            },
+            {
+                path: paths.ORG_LIST,
+                element: <OrganizationsPage />,
+                errorElement: <RouterErrorBoundary />,
+            },
+            {
+                path: paths.ORG_DETAIL,
+                element: <OrganizationDetail />,
                 errorElement: <RouterErrorBoundary />,
             },
         ],

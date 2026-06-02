@@ -4,3 +4,4 @@ export * from './reestr-stats-type';
 export * from './internship-type';
 export * from './academ-type';
 export * from './level-type';
+export * from './organization-type';

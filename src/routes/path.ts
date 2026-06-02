@@ -38,6 +38,11 @@ export const PROJECT_DASHBOARD = '/project/dashboard';
 export const ARXIV_ADMIN = '/arxiv';
 export const ARXIV_DASHBOARD = '/arxiv/dashboard';
 
+// organization (index) section
+export const ORG_ADMIN = '/organization';
+export const ORG_LIST = '/organization/list';
+export const ORG_DETAIL = '/organization/list/view/:id';
+
 const paths = {
     PAGE_NOT_FOUND,
     HOME,
@@ -62,6 +67,9 @@ const paths = {
     PROJECT_DASHBOARD,
     ARXIV_ADMIN,
     ARXIV_DASHBOARD,
+    ORG_ADMIN,
+    ORG_LIST,
+    ORG_DETAIL,
 };
 
 export default paths;

@@ -9,6 +9,7 @@ import {
     Layers,
     FolderOpen,
     Archive,
+    Database,
 } from 'lucide-react';
 import { LogoutOutlined } from '@ant-design/icons';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
@@ -37,6 +38,7 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
         paths.LEVEL_ADMIN,
         paths.PROJECT_ADMIN,
         paths.ARXIV_ADMIN,
+        paths.ORG_ADMIN,
     ]);
     const handleLogout = useCallback(() => {
         logout();
@@ -50,10 +52,23 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
     const isLevelActive = location.pathname.startsWith(paths.LEVEL_ADMIN);
     const isProjectActive = location.pathname.startsWith(paths.PROJECT_ADMIN);
     const isArxivActive = location.pathname.startsWith(paths.ARXIV_ADMIN);
+    const isOrgActive = location.pathname.startsWith(paths.ORG_ADMIN);
 
     const menuItems: MenuProps['items'] = useMemo(
         () =>
             [
+                {
+                    key: paths.ORG_LIST,
+                    icon: <Database size={18} className="shrink-0" />,
+                    label: (
+                        <Link
+                            to={paths.ORG_LIST}
+                            className={`text-base font-semibold transition-colors ${isOrgActive ? 'text-blue-light' : 'text-gray-light-10'}`}
+                        >
+                            Tashkilotlar
+                        </Link>
+                    ),
+                },
                 {
                     key: paths.ADMIN,
                     icon: <BookOpen size={18} className="shrink-0" />,
@@ -266,7 +281,7 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
                     ],
                 },
             ].filter(Boolean) as MenuProps['items'],
-        [isAdminActive, isReestrActive, isInternshipActive, isAcademicActive, isLevelActive, isProjectActive, isArxivActive]
+        [isAdminActive, isReestrActive, isInternshipActive, isAcademicActive, isLevelActive, isProjectActive, isArxivActive, isOrgActive]
     );
 
     return (

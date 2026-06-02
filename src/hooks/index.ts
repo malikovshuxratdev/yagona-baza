@@ -6,3 +6,4 @@ export * from './useInternshipStats';
 export * from './useAcademStats';
 export * from './useLevelStats';
 export * from './useProjectStats';
+export * from './useOrganizationQuery';

@@ -1,19 +1,19 @@
 import { useQuery } from './useQuery';
 import { projectApi } from '@/api';
 
-export const useProjectStatsQuery = () => {
+export const useArxivStatsQuery = () => {
     return useQuery({
-        queryKey: ['project-stats'],
-        queryFn: () => projectApi.getProjectStatistics(),
+        queryKey: ['arxiv-stats'],
+        queryFn: () => projectApi.getArxivStatistics(),
         refetchOnWindowFocus: true,
         refetchOnReconnect: true,
     });
 };
 
-export const useArxivStatsQuery = () => {
+export const useProjectStatsQuery = () => {
     return useQuery({
-        queryKey: ['arxiv-stats'],
-        queryFn: () => projectApi.getArxivStatistics(),
+        queryKey: ['project-stats'],
+        queryFn: () => projectApi.getProjectStats(),
         refetchOnWindowFocus: true,
         refetchOnReconnect: true,
     });
