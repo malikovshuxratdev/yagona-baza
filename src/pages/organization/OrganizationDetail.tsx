@@ -387,7 +387,7 @@ const OrganizationDetail: React.FC = () => {
 
             {/* Academic Mobility */}
             <SectionCard
-                title="Akademik mobillik"
+                title="Akademik mobility"
                 icon={<Plane className="w-4 h-4" />}
                 color="purple"
                 badge={d.academic_mobility?.length ?? 0}
